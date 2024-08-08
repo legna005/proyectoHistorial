@@ -4,6 +4,7 @@ from tkinter import *
 from tkinter import Button, ttk, scrolledtext,Toplevel,StringVar
 from tkinter import messagebox
 from modelo.pacienteDao import Persona, guardarDatoPaciente, listarCondicion,listar,editarDatoPaciente,eliminarPaciente
+from modelo.HistoriaMedicaDao import historiaMedica,guardarHistoria,listarHistoria
 import tkcalendar as tc
 from tkcalendar import *
 from tkcalendar import Calendar
@@ -323,7 +324,7 @@ class Frame(tk.Frame):
         self.btnEliminarPaciente.config(width=20,font=('Arial',12,'bold'),fg='#DAD5D6',bg='#8A0000',activebackground='#D58A8A',cursor='hand2')
         self.btnEliminarPaciente.grid(row=11,column=1,padx=10,pady=5)
 
-        self.btnHistorialPaciente=tk.Button(self,text='Historial paciente')
+        self.btnHistorialPaciente=tk.Button(self,text='Historial paciente',command=self.historiaMedica)
         self.btnHistorialPaciente.config(width=20,font=('Arial',12,'bold'),fg='#DAD5D6',bg='#007C79',activebackground='#99F2F0',cursor='hand2')
         self.btnHistorialPaciente.grid(row=11,column=2,padx=10,pady=5)
 
@@ -331,7 +332,78 @@ class Frame(tk.Frame):
         self.btnSalir.config(width=20,font=('Arial',12,'bold'),fg='#DAD5D6',bg='#000000',activebackground='#5E5E5E',cursor='hand2')
         self.btnSalir.grid(row=11,column=4,padx=10,pady=5)
 
+    def historiaMedica(self):
+        try:
+            if self.idPersona==None:
+                self.idPersona=self.tabla.item(self.tabla.selection()['text'])
+            if(self.idPersona>0):
+                idPersona=self.idPersona
+                
+            self.topHistoriaMedica=Toplevel()
+            self.topHistoriaMedica.title('HISTORIAL MEDICO')
+            self.topHistoriaMedica.resizable(0,0)
+            self.topHistoriaMedica.config(bg='#CDD8FF')
 
+            self.listaHistoria=listarHistoria(idPersona)
+            self.tablaHistoria = ttk.Treeview(self.topHistoriaMedica, columns=('Apellidos', 'fechaHistoria', 'temperaturaCorporal', 'pulso', 'frecuenciaRespiratoria', 'presionArterial', 'peso', 'altura', 'imc'))
+            self.tablaHistoria.grid(row=0, column=0, columnspan=10,sticky='nse')
+
+            self.scrollHistoria=ttk.Scrollbar(self.topHistoriaMedica,orient='vertical',command=self.tablaHistoria.yview)
+            self.scrollHistoria.grid(row=0,column=8,sticky='nse')
+
+            self.tablaHistoria.configure(yscrollcommand=self.scrollHistoria.set)
+
+            self.tablaHistoria.heading('#0',text='ID')
+            self.tablaHistoria.heading('#1',text='Apellidos')
+            self.tablaHistoria.heading('#2',text='Fecha y Hora')
+            self.tablaHistoria.heading('#3',text='temperatura corporal')
+            self.tablaHistoria.heading('#4',text='Pulso')
+            self.tablaHistoria.heading('#5',text='frecuencia respiratoria')
+            self.tablaHistoria.heading('#6',text='presion arterial')
+            self.tablaHistoria.heading('#7',text='peso')
+            self.tablaHistoria.heading('#8',text='altura')
+            self.tablaHistoria.heading('#9',text='imc')
+
+            self.tablaHistoria.column('#0',anchor=W,width=50)
+            self.tablaHistoria.column('#1',anchor=W,width=100)
+            self.tablaHistoria.column('#2',anchor=W,width=100)
+            self.tablaHistoria.column('#3',anchor=W,width=120)
+            self.tablaHistoria.column('#4',anchor=W,width=250)
+            self.tablaHistoria.column('#5',anchor=W,width=150)
+            self.tablaHistoria.column('#6',anchor=W,width=50)
+            self.tablaHistoria.column('#7',anchor=W,width=50)
+            self.tablaHistoria.column('#8',anchor=W,width=150)
+            self.tablaHistoria.column('#9',anchor=W,width=150)
+
+            for p in self.listaHistoria:
+                self.tablaHistoria.insert('',0,text=p[0],values=(p[1],p[2],p[3],p[4],p[5],p[6],p[7],p[8],p[9]))
+            
+            self.btnGuardarHistoria=tk.Button(self.topHistoriaMedica, text='Agregar Historia')
+            self.btnGuardarHistoria.config(width=20,font=('Arial',12,'bold'),fg='#DAD5D6',bg='#002771',cursor='hand2',activebackground='#7198E0')
+            self.btnGuardarHistoria.grid(row=2,column=0,padx=10,pady=5)
+
+            self.btnEditarHistoria=tk.Button(self.topHistoriaMedica, text='Editar Historia')
+            self.btnEditarHistoria.config(width=20,font=('Arial',12,'bold'),fg='#DAD5D6',bg='#3A005D',cursor='hand2',activebackground='#B47CD6')
+            self.btnEditarHistoria.grid(row=2,column=1,padx=10,pady=5)
+
+            self.btnEliminarHistoria=tk.Button(self.topHistoriaMedica, text='Eliminar Historia')
+            self.btnEliminarHistoria.config(width=20,font=('Arial',12,'bold'),fg='#DAD5D6',bg='#890011',cursor='hand2',activebackground='#DB939C')
+            self.btnEliminarHistoria.grid(row=2,column=2,padx=10,pady=5)
+
+            self.btnCerrarHistoria=tk.Button(self.topHistoriaMedica, text='Cerrar Historia',command=self.salirTop)
+            self.btnCerrarHistoria.config(width=20,font=('Arial',12,'bold'),fg='#DAD5D6',bg='#000000',cursor='hand2',activebackground='#6F6F6F')
+            self.btnCerrarHistoria.grid(row=2,column=3,padx=10,pady=5)
+        except:
+            title='Historia medica'
+            mensaje='Error al mostrar historial'
+            messagebox.showerror(title,mensaje)
+
+    def salirTop(self):
+        self.topHistoriaMedica.destroy()
+
+
+        
+            
     def editarPaciente(self):
         try:
             self.idPersona = self.tabla.item(self.tabla.selection())['text'] #Trae el ID
