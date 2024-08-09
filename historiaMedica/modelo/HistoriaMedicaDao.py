@@ -4,17 +4,18 @@ from tkinter import messagebox
 def listarHistoria(idPersona):
     conexion=ConexionDB()
     listaHistoria=[]
-    sql=f'SELECT * h.idHistoriaMedica, p.apellidoPaterno || " "||p.apellidoMaterno AS Apellidos, h.fechaHistoria, h.temperaturaCorporal, h.pulso, h.frecuenciaRespiratoria, h.presionArterial, h.peso, h.altura, h.imc FROM historiaMedica h INNER JOIN Persona p ON p.idPersona=h.idPersona WHERE p.idPersona={idPersona}'
+    sql=f'SELECT  h.idHistoriaMedica, p.nombre || " " || p.apellidoPaterno || " "||p.apellidoMaterno AS Apellidos, h.fechaHistoria, h.temperaturaCorporal, h.pulso, h.frecuenciaRespiratoria, h.presionArterial, h.peso, h.altura, h.imc FROM historiaMedica h INNER JOIN Persona p ON p.idPersona=h.idPersona WHERE p.idPersona={idPersona}'
 
     try:
         conexion.cursor.execute(sql)
-        listaHistoria=conexion.cursor.fetchall()
+        listaHistoria = conexion.cursor.fetchall()
         conexion.cerrarConexion()
     except:
-        title='Listar historia'
-        mensaje='Error al listar historia Medica'
-        messagebox.showerror(title,mensaje)
+        title = 'LISTAR HISTORIA'
+        mensaje = 'Error al listar historia medica'
+        messagebox.showerror(title, mensaje)
 
+    return listaHistoria
 
 def guardarHistoria(idPersona,fechaHistoria,temperaturaCorporal,pulso,frecuenciaRespiratoria,presionArterial,peso,altura,imc):
     conexion=ConexionDB()
@@ -24,7 +25,7 @@ def guardarHistoria(idPersona,fechaHistoria,temperaturaCorporal,pulso,frecuencia
           {pulso},'{frecuenciaRespiratoria}',{presionArterial},'{peso}',
           '{altura}','{imc}')"""
     try:
-        conexion.cursor(sql)
+        conexion.cursor.execute(sql)
         conexion.cerrarConexion()
         title='Registro Historia Medica'
         mensaje='Historia agregada exitosamente'
@@ -34,9 +35,8 @@ def guardarHistoria(idPersona,fechaHistoria,temperaturaCorporal,pulso,frecuencia
         mensaje='Error al registrar historia'
         messagebox.showinfo(title,mensaje)
 
-
 class historiaMedica:
-    def __init__(self,idPersona,fechaHistoria,temperaturaCorporal,pulso,frecuenciaRespiratoria,presionArterial,peso,altura,imc):
+    def _init_(self,idPersona,fechaHistoria,temperaturaCorporal,pulso,frecuenciaRespiratoria,presionArterial,peso,altura,imc):
         self.idHistoriaMedica=None
         self.idPersona=idPersona
         self.fechaHistoria=fechaHistoria
@@ -48,5 +48,5 @@ class historiaMedica:
         self.altura=altura
         self.imc=imc
 
-    def __str__(self):
+    def _str_(self):
         return f'historiaMedica[{self.idPersona},{self.fechaHistoria},{self.temperaturaCorporal},{self.pulso},{self.frecuenciaRespiratoria},{self.presionArterial},{self.peso},{self.altura},{self.imc}]'

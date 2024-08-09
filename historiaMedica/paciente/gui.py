@@ -1,7 +1,7 @@
 from calendar import LocaleHTMLCalendar
 import tkinter as tk 
 from tkinter import *
-from tkinter import Button, ttk, scrolledtext,Toplevel,StringVar
+from tkinter import Button, ttk, scrolledtext,Toplevel,StringVar,LabelFrame
 from tkinter import messagebox
 from modelo.pacienteDao import Persona, guardarDatoPaciente, listarCondicion,listar,editarDatoPaciente,eliminarPaciente
 from modelo.HistoriaMedicaDao import historiaMedica,guardarHistoria,listarHistoria
@@ -164,8 +164,8 @@ class Frame(tk.Frame):
         self.calendario.resizable(0,0)
         self.calendario.config(bg='#CDD8FF')
 
-        self.svCalendario = StringVar(value="01-01-1990")
-        self.calendar = tc.Calendar(self.calendario, selectmode='day', year=1990, month=1, day=1,locale ='es_US',bg='#777777', fg='#FFFFFF', headersbackground='#B6DDFE',textvariable=self.svCalendario,cursor = 'hand2', date_pattern='dd-mm-Y')
+        self.svCalendario = StringVar(value="01/01/1990")
+        self.calendar = tc.Calendar(self.calendario, selectmode='day', year=1990, month=1, day=1,locale ='es_US',bg='#777777', fg='#FFFFFF', headersbackground='#B6DDFE',textvariable=self.svCalendario,cursor = 'hand2', date_pattern='dd/mm/Y')
         self.calendar.pack(pady=22)
         self.calendar.grid(row=1, column=0)
         #fecha,
@@ -181,7 +181,7 @@ class Frame(tk.Frame):
     def calcularEdad(self, *args):
         self.fechaActual = date.today()
         self.date1 = self.calendar.get_date()
-        self.conver = datetime.strptime(self.date1, "%d-%m-%Y")
+        self.conver = datetime.strptime(self.date1, "%d/%m/%Y")
 
         self.resul = self.fechaActual.year - self.conver.year
         self.resul -= ((self.fechaActual.month, self.fechaActual.day) < (self.conver.month, self.conver.day))
@@ -335,7 +335,7 @@ class Frame(tk.Frame):
     def historiaMedica(self):
         try:
             if self.idPersona==None:
-                self.idPersona=self.tabla.item(self.tabla.selection()['text'])
+                self.idPersona=self.tabla.item(self.tabla.selection())['text']
             if(self.idPersona>0):
                 idPersona=self.idPersona
                 
@@ -349,7 +349,7 @@ class Frame(tk.Frame):
             self.tablaHistoria.grid(row=0, column=0, columnspan=10,sticky='nse')
 
             self.scrollHistoria=ttk.Scrollbar(self.topHistoriaMedica,orient='vertical',command=self.tablaHistoria.yview)
-            self.scrollHistoria.grid(row=0,column=8,sticky='nse')
+            self.scrollHistoria.grid(row=0,column=10,sticky='nse')
 
             self.tablaHistoria.configure(yscrollcommand=self.scrollHistoria.set)
 
@@ -378,7 +378,7 @@ class Frame(tk.Frame):
             for p in self.listaHistoria:
                 self.tablaHistoria.insert('',0,text=p[0],values=(p[1],p[2],p[3],p[4],p[5],p[6],p[7],p[8],p[9]))
             
-            self.btnGuardarHistoria=tk.Button(self.topHistoriaMedica, text='Agregar Historia')
+            self.btnGuardarHistoria=tk.Button(self.topHistoriaMedica, text='Agregar Historia',command=self.topAgregarHistoria)
             self.btnGuardarHistoria.config(width=20,font=('Arial',12,'bold'),fg='#DAD5D6',bg='#002771',cursor='hand2',activebackground='#7198E0')
             self.btnGuardarHistoria.grid(row=2,column=0,padx=10,pady=5)
 
@@ -397,6 +397,116 @@ class Frame(tk.Frame):
             title='Historia medica'
             mensaje='Error al mostrar historial'
             messagebox.showerror(title,mensaje)
+
+    def topAgregarHistoria(self):
+        self.topAHistoria=Toplevel()
+        self.topAHistoria.title('Agregar Historia')
+        self.topAHistoria.resizable(0,0)
+        self.topAHistoria.config(bg='#CDD8FF')
+
+        self.frameDatosHistoria=tk.LabelFrame(self.topAHistoria)
+        self.frameDatosHistoria.config(bg='#CDD8FF')
+        self.frameDatosHistoria.pack(fill="both",expand="yes",pady=10,padx=20)
+
+        #LABELS AGREGAR HISTORIA MEDICA
+        self.lbltemperaturaCorporalHistoria=tk.Label(self.frameDatosHistoria,text='Temperatura Corporal',width=20,font=('ARIAL',15,'bold'),bg='#CDD8FF')
+        self.lbltemperaturaCorporalHistoria.grid(row=0,column=0,padx=5,pady=3)
+
+        self.lblpulsoHistoria=tk.Label(self.frameDatosHistoria,text='Pulso',width=20,font=('ARIAL',15,'bold'),bg='#CDD8FF')
+        self.lblpulsoHistoria.grid(row=2,column=0,padx=5,pady=3)
+
+        self.lblfrecuenciaRespiratoriaHistoria=tk.Label(self.frameDatosHistoria,text='Frecuencia respiratoria',width=20,font=('ARIAL',15,'bold'),bg='#CDD8FF')
+        self.lblfrecuenciaRespiratoriaHistoria.grid(row=4,column=0,padx=5,pady=3)
+
+        self.lblpresionArterialHistoria=tk.Label(self.frameDatosHistoria,text='Presion arterial',width=20,font=('ARIAL',15,'bold'),bg='#CDD8FF')
+        self.lblpresionArterialHistoria.grid(row=6,column=0,padx=5,pady=3)
+
+        self.lblpesoHistoria=tk.Label(self.frameDatosHistoria,text='Peso',width=20,font=('ARIAL',15,'bold'),bg='#CDD8FF')
+        self.lblpesoHistoria.grid(row=8,column=0,padx=5,pady=3)
+
+        self.lblalturaHistoria=tk.Label(self.frameDatosHistoria,text='Altura',width=20,font=('ARIAL',15,'bold'),bg='#CDD8FF')
+        self.lblalturaHistoria.grid(row=10,column=0,padx=5,pady=3)
+
+        self.lblimcHistoria=tk.Label(self.frameDatosHistoria,text='Imc',width=20,font=('ARIAL',15,'bold'),bg='#CDD8FF')
+        self.lblimcHistoria.grid(row=12,column=0,padx=5,pady=3)
+
+        #ENTRYS AGREGAR HISTORIA MEDICA
+        self.svTemperaturaCorporalHistoria=tk.StringVar()
+        self.TemperaturaCorporalHistoria=tk.Entry(self.frameDatosHistoria,textvariable=self.svTemperaturaCorporalHistoria)
+        self.TemperaturaCorporalHistoria.config(width=60,font=('ARIAL',15))
+        self.TemperaturaCorporalHistoria.grid(row=1,column=0,padx=5,pady=3,columnspan=2)
+
+        self.svPulsoHistoria=tk.StringVar()
+        self.PulsoHistoria=tk.Entry(self.frameDatosHistoria,textvariable=self.svPulsoHistoria)
+        self.PulsoHistoria.config(width=60,font=('ARIAL',15))
+        self.PulsoHistoria.grid(row=3,column=0,padx=5,pady=3,columnspan=2)
+
+        self.svFrecuenciaRespiratoriaHistoria=tk.StringVar()
+        self.FrecuenciaRespiratoriaHistoria=tk.Entry(self.frameDatosHistoria,textvariable=self.svFrecuenciaRespiratoriaHistoria)
+        self.FrecuenciaRespiratoriaHistoria.config(width=60,font=('ARIAL',15))
+        self.FrecuenciaRespiratoriaHistoria.grid(row=5,column=0,padx=5,pady=3,columnspan=2)
+
+        self.svPresionArterialHistoria=tk.StringVar()
+        self.PresionArterialHistoria=tk.Entry(self.frameDatosHistoria,textvariable=self.svPresionArterialHistoria)
+        self.PresionArterialHistoria.config(width=60,font=('ARIAL',15))
+        self.PresionArterialHistoria.grid(row=7,column=0,padx=5,pady=3,columnspan=2)
+
+        self.svPesoHistorial=tk.StringVar()
+        self.PesoHistorial=tk.Entry(self.frameDatosHistoria,textvariable=self.svPesoHistorial)
+        self.PesoHistorial.config(width=60,font=('ARIAL',15))
+        self.PesoHistorial.grid(row=9,column=0,padx=5,pady=3,columnspan=2)
+
+        self.svAlturaHistorial=tk.StringVar()
+        self.AlturaHistorial=tk.Entry(self.frameDatosHistoria,textvariable=self.svAlturaHistorial)
+        self.AlturaHistorial.config(width=60,font=('ARIAL',15))
+        self.AlturaHistorial.grid(row=11,column=0,padx=5,pady=3,columnspan=2)
+
+        self.svImcHistorial=tk.StringVar()
+        self.TemperaturaHistorial=tk.Entry(self.frameDatosHistoria,textvariable=self.svImcHistorial)
+        self.TemperaturaHistorial.config(width=60,font=('ARIAL',15))
+        self.TemperaturaHistorial.grid(row=13,column=0,padx=5,pady=3,columnspan=2)
+
+        self.frameFechaHistoria=tk.Label(self.topAHistoria)
+        self.frameFechaHistoria.config(bg='#CDD8FF')
+        self.frameFechaHistoria.pack(fill="both",expand="yes",padx=20,pady=10)
+
+        self.lblfechaHistoria=tk.Label(self.frameDatosHistoria,text='fecha y hora',width=20,font=('ARIAL',15),bg='#CDD8FF')
+        self.lblfechaHistoria.grid(row=16,column=0,padx=3,pady=3)
+
+        self.svFechaHistoria=tk.StringVar()
+        self.entryFechaHistoria=tk.Entry(self.frameFechaHistoria,textvariable=self.svFechaHistoria)
+        self.entryFechaHistoria.config(width=25,font=('ARIAL',15))
+        self.entryFechaHistoria.grid(row=1,column=0,padx=5,pady=3)
+
+        self.svFechaHistoria.set(datetime.today().strftime('%d/%M/%Y %H:%M'))
+
+        self.btnImcHistoria=tk.Button(self.frameFechaHistoria,text='Calcular Imc')
+        self.btnImcHistoria.config(width=20,font=('ARIAL',12,'bold'),fg='#DAD5D6',bg='#000992',cursor='hand2',activebackground='#4E56C6')
+        self.btnImcHistoria.grid(row=2,column=1,padx=9,pady=5)
+
+        self.btnAgregarHistoria=tk.Button(self.frameFechaHistoria,text='Agregar historia')
+        self.btnAgregarHistoria.config(width=20,font=('ARIAL',12,'bold'),fg='#DAD5D6',bg='#000992',cursor='hand2',activebackground='#4E56C6')
+        self.btnAgregarHistoria.grid(row=2,column=0,padx=9,pady=5)
+
+        self.btnSalirAgregarHistoria=tk.Button(self.frameFechaHistoria,text='Salir',command=self.topAHistoria.destroy)
+        self.btnSalirAgregarHistoria.config(width=20,font=('ARIAL',12,'bold'),fg='#DAD5D6',bg='#000000',cursor='hand2',activebackground='#646464')
+        self.btnSalirAgregarHistoria.grid(row=2,column=3,padx=10,pady=5)
+
+        
+
+    
+        
+
+
+
+        
+
+
+
+
+
+        
+
 
     def salirTop(self):
         self.topHistoriaMedica.destroy()
