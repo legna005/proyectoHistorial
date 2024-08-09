@@ -17,7 +17,9 @@ class Frame(tk.Frame):
         self.root=root
         self.pack()
         self.config(bg="#CDD8FF")
+        self.idPersonaHistoria=None
         self.idPersona=None
+        self.idHistoriaMedica=None
         self.camposPaciente()
         self.deshabilitar()
         self.tablaPaciente()
@@ -336,6 +338,7 @@ class Frame(tk.Frame):
         try:
             if self.idPersona==None:
                 self.idPersona=self.tabla.item(self.tabla.selection())['text']
+                self.idPersonaHistoria=self.tabla.item(self.tabla.selection())['text']
             if(self.idPersona>0):
                 idPersona=self.idPersona
                 
@@ -410,7 +413,7 @@ class Frame(tk.Frame):
 
         #LABELS AGREGAR HISTORIA MEDICA
         
-        self.lblSignosVitalesHistoria=tk.Label(self.frameDatosHistoria,text='Signos vitales:',width=20,font=('ARIAL',15,'bold'),bg='#CDD8FF')
+        self.lblSignosVitalesHistoria=tk.Label(self.frameDatosHistoria,text='Signos vitales:',width=20,font=('ARIAL',15,'bold'),bg='#8AF334')
         self.lblSignosVitalesHistoria.grid(row=1,column=0,padx=5,pady=3)
     
         self.lbltemperaturaCorporalHistoria=tk.Label(self.frameDatosHistoria,text='Temperatura Corporal',width=20,font=('ARIAL',15,'bold'),bg='#CDD8FF')
@@ -434,19 +437,19 @@ class Frame(tk.Frame):
         self.lblimcHistoria=tk.Label(self.frameDatosHistoria,text='Imc',width=20,font=('ARIAL',15,'bold'),bg='#CDD8FF')
         self.lblimcHistoria.grid(row=8,column=0,padx=5,pady=3)
 
-        self.lblParametrosHistoria=tk.Label(self.frameDatosHistoria,text='Parámetros',width=20,font=('ARIAL',15,'bold'),bg='#8AF334')
+        self.lblParametrosHistoria=tk.Label(self.frameDatosHistoria,text='Parámetros',width=21,font=('ARIAL',15,'bold'),bg='#8AF334')
         self.lblParametrosHistoria.grid(row=1,column=3,padx=5,pady=3)
 
-        self.lblPTemperaturaHistoria=tk.Label(self.frameDatosHistoria,text='36.5°C - 37.3°C',width=20,font=('ARIAL',15,'bold'),bg='#8AF334')
+        self.lblPTemperaturaHistoria=tk.Label(self.frameDatosHistoria,text='36.5°C - 37.3°C',width=21,font=('ARIAL',15,'bold'),bg='#8AF334')
         self.lblPTemperaturaHistoria.grid(row=2,column=3,padx=5,pady=3)
 
-        self.lblPPulsoHistoria=tk.Label(self.frameDatosHistoria,text='60 - 100 latidos',width=20,font=('ARIAL',15,'bold'),bg='#8AF334')
+        self.lblPPulsoHistoria=tk.Label(self.frameDatosHistoria,text='60 - 100 latidos',width=21,font=('ARIAL',15,'bold'),bg='#8AF334')
         self.lblPPulsoHistoria.grid(row=3,column=3,padx=5,pady=3)
 
-        self.lblPFrecuenciarespiratoriaHistoria=tk.Label(self.frameDatosHistoria,text='12 - 18 respiraciones x min.',width=20,font=('ARIAL',15,'bold'),bg='#8AF334')
+        self.lblPFrecuenciarespiratoriaHistoria=tk.Label(self.frameDatosHistoria,text='12 - 18 respiraciones x min.',width=21,font=('ARIAL',15,'bold'),bg='#8AF334')
         self.lblPFrecuenciarespiratoriaHistoria.grid(row=4,column=3,padx=5,pady=3)
 
-        self.lblPPresionarterial=tk.Label(self.frameDatosHistoria,text='60 - 100 latidos x min.',width=20,font=('ARIAL',15,'bold'),bg='#8AF334')
+        self.lblPPresionarterial=tk.Label(self.frameDatosHistoria,text='60 - 100 latidos x min.',width=21,font=('ARIAL',15,'bold'),bg='#8AF334')
         self.lblPPresionarterial.grid(row=5,column=3,padx=5,pady=3)
 
         #ENTRYS AGREGAR HISTORIA MEDICA
@@ -491,27 +494,37 @@ class Frame(tk.Frame):
 
         self.svFechaHistoria=tk.StringVar()
         self.entryFechaHistoria=tk.Entry(self.frameFechaHistoria,textvariable=self.svFechaHistoria)
-        self.entryFechaHistoria.config(width=25,font=('ARIAL',15))
+        self.entryFechaHistoria.config(width=15,font=('ARIAL',15))
         self.entryFechaHistoria.grid(row=1,column=0,padx=5,pady=3)
 
-        self.lblfechaHistoria=tk.Label(self.frameDatosHistoria,text='fecha y hora',width=20,font=('ARIAL',15),bg='#CDD8FF')
+        self.lblfechaHistoria=tk.Label(self.frameDatosHistoria,text='fecha y hora',width=15,font=('ARIAL',15),bg='#CDD8FF')
         self.lblfechaHistoria.grid(row=16,column=0,padx=3,pady=3)
 
-        self.svFechaHistoria.set(datetime.today().strftime('%d/%M/%Y %H:%M'))
+        self.svFechaHistoria.set(datetime.today().strftime('%d/%m/%Y %H:%M'))
 
         self.btnImcHistoria=tk.Button(self.frameFechaHistoria,text='Calcular Imc')
         self.btnImcHistoria.config(width=20,font=('ARIAL',12,'bold'),fg='#DAD5D6',bg='#000992',cursor='hand2',activebackground='#4E56C6')
         self.btnImcHistoria.grid(row=2,column=1,padx=9,pady=5)
 
-        self.btnAgregarHistoria=tk.Button(self.frameFechaHistoria,text='Agregar historia')
-        self.btnAgregarHistoria.config(width=20,font=('ARIAL',12,'bold'),fg='#DAD5D6',bg='#000992',cursor='hand2',activebackground='#4E56C6')
-        self.btnAgregarHistoria.grid(row=2,column=0,padx=9,pady=5)
+        self.btnGuardarHistoria=tk.Button(self.frameFechaHistoria,text='Guardar Historia',command=self.guardarHistorialMedico)
+        self.btnGuardarHistoria.config(width=20,font=('ARIAL',12,'bold'),fg='#DAD5D6',bg='#000992',cursor='hand2',activebackground='#4E56C6')
+        self.btnGuardarHistoria.grid(row=2,column=0,padx=9,pady=5)
 
         self.btnSalirAgregarHistoria=tk.Button(self.frameFechaHistoria,text='Salir',command=self.topAHistoria.destroy)
         self.btnSalirAgregarHistoria.config(width=20,font=('ARIAL',12,'bold'),fg='#DAD5D6',bg='#000000',cursor='hand2',activebackground='#646464')
         self.btnSalirAgregarHistoria.grid(row=2,column=3,padx=10,pady=5)
 
         
+    def guardarHistorialMedico(self):
+        try:
+            if self.idHistoriaMedica==None:
+                guardarHistoria(self.idPersonaHistoria,self.svFechaHistoria.get(),self.svTemperaturaCorporalHistoria.get(),self.svPulsoHistoria.get(),self.svFrecuenciaRespiratoriaHistoria.get(),self.svPresionArterialHistoria.get(),self.svPesoHistorial.get(),self.svAlturaHistorial.get(),self.svImcHistorial)
+                self.topAHistoria.destroy()
+                self.topHistoriaMedica.destroy()
+        except:
+            title='Agregar Historia'
+            mensaje='Error al agregar historia medica'
+            messagebox.showerror(title,mensaje)
 
     
         

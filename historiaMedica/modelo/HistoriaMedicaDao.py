@@ -21,19 +21,17 @@ def guardarHistoria(idPersona,fechaHistoria,temperaturaCorporal,pulso,frecuencia
     conexion=ConexionDB()
     sql = f"""INSERT INTO historiaMedica (idPersona,temperaturaCorporal , pulso,
           frecuenciaRespiratoria, presionArterial, peso, altura, imc ) VALUES
-          ('{idPersona}','{fechaHistoria}','{temperaturaCorporal}',
-          {pulso},'{frecuenciaRespiratoria}',{presionArterial},'{peso}',
-          '{altura}','{imc}')"""
+          ({idPersona},'{fechaHistoria}','{temperaturaCorporal}',{pulso},'{frecuenciaRespiratoria}',{presionArterial},'{peso}','{altura}','{imc}')"""
     try:
         conexion.cursor.execute(sql)
         conexion.cerrarConexion()
-        title='Registro Historia Medica'
-        mensaje='Historia agregada exitosamente'
-        messagebox.showinfo(title,mensaje)
+        title = 'Registro Historia Medica'
+        mensaje = 'Historia registrada exitosamente'
+        messagebox.showinfo(title, mensaje)
     except:
-        title='Registro Historia Medica'
-        mensaje='Error al registrar historia'
-        messagebox.showinfo(title,mensaje)
+        title = 'Registro Historia Medica'
+        mensaje = 'Error al registrar historia'
+        messagebox.showerror(title, mensaje)
 
 class historiaMedica:
     def _init_(self,idPersona,fechaHistoria,temperaturaCorporal,pulso,frecuenciaRespiratoria,presionArterial,peso,altura,imc):
