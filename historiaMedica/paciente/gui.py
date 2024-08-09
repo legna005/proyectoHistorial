@@ -409,74 +409,93 @@ class Frame(tk.Frame):
         self.frameDatosHistoria.pack(fill="both",expand="yes",pady=10,padx=20)
 
         #LABELS AGREGAR HISTORIA MEDICA
+        
+        self.lblSignosVitalesHistoria=tk.Label(self.frameDatosHistoria,text='Signos vitales:',width=20,font=('ARIAL',15,'bold'),bg='#CDD8FF')
+        self.lblSignosVitalesHistoria.grid(row=1,column=0,padx=5,pady=3)
+    
         self.lbltemperaturaCorporalHistoria=tk.Label(self.frameDatosHistoria,text='Temperatura Corporal',width=20,font=('ARIAL',15,'bold'),bg='#CDD8FF')
-        self.lbltemperaturaCorporalHistoria.grid(row=0,column=0,padx=5,pady=3)
+        self.lbltemperaturaCorporalHistoria.grid(row=2,column=0,padx=5,pady=3)
 
         self.lblpulsoHistoria=tk.Label(self.frameDatosHistoria,text='Pulso',width=20,font=('ARIAL',15,'bold'),bg='#CDD8FF')
-        self.lblpulsoHistoria.grid(row=2,column=0,padx=5,pady=3)
+        self.lblpulsoHistoria.grid(row=3,column=0,padx=5,pady=3)
 
         self.lblfrecuenciaRespiratoriaHistoria=tk.Label(self.frameDatosHistoria,text='Frecuencia respiratoria',width=20,font=('ARIAL',15,'bold'),bg='#CDD8FF')
         self.lblfrecuenciaRespiratoriaHistoria.grid(row=4,column=0,padx=5,pady=3)
 
         self.lblpresionArterialHistoria=tk.Label(self.frameDatosHistoria,text='Presion arterial',width=20,font=('ARIAL',15,'bold'),bg='#CDD8FF')
-        self.lblpresionArterialHistoria.grid(row=6,column=0,padx=5,pady=3)
+        self.lblpresionArterialHistoria.grid(row=5,column=0,padx=5,pady=3)
 
         self.lblpesoHistoria=tk.Label(self.frameDatosHistoria,text='Peso',width=20,font=('ARIAL',15,'bold'),bg='#CDD8FF')
-        self.lblpesoHistoria.grid(row=8,column=0,padx=5,pady=3)
+        self.lblpesoHistoria.grid(row=6,column=0,padx=5,pady=3)
 
         self.lblalturaHistoria=tk.Label(self.frameDatosHistoria,text='Altura',width=20,font=('ARIAL',15,'bold'),bg='#CDD8FF')
-        self.lblalturaHistoria.grid(row=10,column=0,padx=5,pady=3)
+        self.lblalturaHistoria.grid(row=7,column=0,padx=5,pady=3)
 
         self.lblimcHistoria=tk.Label(self.frameDatosHistoria,text='Imc',width=20,font=('ARIAL',15,'bold'),bg='#CDD8FF')
-        self.lblimcHistoria.grid(row=12,column=0,padx=5,pady=3)
+        self.lblimcHistoria.grid(row=8,column=0,padx=5,pady=3)
+
+        self.lblParametrosHistoria=tk.Label(self.frameDatosHistoria,text='Parámetros',width=20,font=('ARIAL',15,'bold'),bg='#8AF334')
+        self.lblParametrosHistoria.grid(row=1,column=3,padx=5,pady=3)
+
+        self.lblPTemperaturaHistoria=tk.Label(self.frameDatosHistoria,text='36.5°C - 37.3°C',width=20,font=('ARIAL',15,'bold'),bg='#8AF334')
+        self.lblPTemperaturaHistoria.grid(row=2,column=3,padx=5,pady=3)
+
+        self.lblPPulsoHistoria=tk.Label(self.frameDatosHistoria,text='60 - 100 latidos',width=20,font=('ARIAL',15,'bold'),bg='#8AF334')
+        self.lblPPulsoHistoria.grid(row=3,column=3,padx=5,pady=3)
+
+        self.lblPFrecuenciarespiratoriaHistoria=tk.Label(self.frameDatosHistoria,text='12 - 18 respiraciones x min.',width=20,font=('ARIAL',15,'bold'),bg='#8AF334')
+        self.lblPFrecuenciarespiratoriaHistoria.grid(row=4,column=3,padx=5,pady=3)
+
+        self.lblPPresionarterial=tk.Label(self.frameDatosHistoria,text='60 - 100 latidos x min.',width=20,font=('ARIAL',15,'bold'),bg='#8AF334')
+        self.lblPPresionarterial.grid(row=5,column=3,padx=5,pady=3)
 
         #ENTRYS AGREGAR HISTORIA MEDICA
         self.svTemperaturaCorporalHistoria=tk.StringVar()
         self.TemperaturaCorporalHistoria=tk.Entry(self.frameDatosHistoria,textvariable=self.svTemperaturaCorporalHistoria)
-        self.TemperaturaCorporalHistoria.config(width=60,font=('ARIAL',15))
-        self.TemperaturaCorporalHistoria.grid(row=1,column=0,padx=5,pady=3,columnspan=2)
+        self.TemperaturaCorporalHistoria.config(width=15,font=('ARIAL',15))
+        self.TemperaturaCorporalHistoria.grid(row=2,column=1,padx=5,pady=3,columnspan=2)
 
         self.svPulsoHistoria=tk.StringVar()
         self.PulsoHistoria=tk.Entry(self.frameDatosHistoria,textvariable=self.svPulsoHistoria)
-        self.PulsoHistoria.config(width=60,font=('ARIAL',15))
-        self.PulsoHistoria.grid(row=3,column=0,padx=5,pady=3,columnspan=2)
+        self.PulsoHistoria.config(width=15,font=('ARIAL',15))
+        self.PulsoHistoria.grid(row=3,column=1,padx=5,pady=3,columnspan=2)
 
         self.svFrecuenciaRespiratoriaHistoria=tk.StringVar()
         self.FrecuenciaRespiratoriaHistoria=tk.Entry(self.frameDatosHistoria,textvariable=self.svFrecuenciaRespiratoriaHistoria)
-        self.FrecuenciaRespiratoriaHistoria.config(width=60,font=('ARIAL',15))
-        self.FrecuenciaRespiratoriaHistoria.grid(row=5,column=0,padx=5,pady=3,columnspan=2)
+        self.FrecuenciaRespiratoriaHistoria.config(width=15,font=('ARIAL',15))
+        self.FrecuenciaRespiratoriaHistoria.grid(row=4,column=1,padx=5,pady=3,columnspan=2)
 
         self.svPresionArterialHistoria=tk.StringVar()
         self.PresionArterialHistoria=tk.Entry(self.frameDatosHistoria,textvariable=self.svPresionArterialHistoria)
-        self.PresionArterialHistoria.config(width=60,font=('ARIAL',15))
-        self.PresionArterialHistoria.grid(row=7,column=0,padx=5,pady=3,columnspan=2)
+        self.PresionArterialHistoria.config(width=15,font=('ARIAL',15))
+        self.PresionArterialHistoria.grid(row=5,column=1,padx=5,pady=3,columnspan=2)
 
         self.svPesoHistorial=tk.StringVar()
         self.PesoHistorial=tk.Entry(self.frameDatosHistoria,textvariable=self.svPesoHistorial)
-        self.PesoHistorial.config(width=60,font=('ARIAL',15))
-        self.PesoHistorial.grid(row=9,column=0,padx=5,pady=3,columnspan=2)
+        self.PesoHistorial.config(width=15,font=('ARIAL',15))
+        self.PesoHistorial.grid(row=6,column=1,padx=5,pady=3,columnspan=2)
 
         self.svAlturaHistorial=tk.StringVar()
         self.AlturaHistorial=tk.Entry(self.frameDatosHistoria,textvariable=self.svAlturaHistorial)
-        self.AlturaHistorial.config(width=60,font=('ARIAL',15))
-        self.AlturaHistorial.grid(row=11,column=0,padx=5,pady=3,columnspan=2)
+        self.AlturaHistorial.config(width=15,font=('ARIAL',15))
+        self.AlturaHistorial.grid(row=7,column=1,padx=5,pady=3,columnspan=2)
 
         self.svImcHistorial=tk.StringVar()
         self.TemperaturaHistorial=tk.Entry(self.frameDatosHistoria,textvariable=self.svImcHistorial)
-        self.TemperaturaHistorial.config(width=60,font=('ARIAL',15))
-        self.TemperaturaHistorial.grid(row=13,column=0,padx=5,pady=3,columnspan=2)
+        self.TemperaturaHistorial.config(width=15,font=('ARIAL',15))
+        self.TemperaturaHistorial.grid(row=8,column=1,padx=5,pady=3,columnspan=2)
 
         self.frameFechaHistoria=tk.Label(self.topAHistoria)
         self.frameFechaHistoria.config(bg='#CDD8FF')
         self.frameFechaHistoria.pack(fill="both",expand="yes",padx=20,pady=10)
 
-        self.lblfechaHistoria=tk.Label(self.frameDatosHistoria,text='fecha y hora',width=20,font=('ARIAL',15),bg='#CDD8FF')
-        self.lblfechaHistoria.grid(row=16,column=0,padx=3,pady=3)
-
         self.svFechaHistoria=tk.StringVar()
         self.entryFechaHistoria=tk.Entry(self.frameFechaHistoria,textvariable=self.svFechaHistoria)
         self.entryFechaHistoria.config(width=25,font=('ARIAL',15))
         self.entryFechaHistoria.grid(row=1,column=0,padx=5,pady=3)
+
+        self.lblfechaHistoria=tk.Label(self.frameDatosHistoria,text='fecha y hora',width=20,font=('ARIAL',15),bg='#CDD8FF')
+        self.lblfechaHistoria.grid(row=16,column=0,padx=3,pady=3)
 
         self.svFechaHistoria.set(datetime.today().strftime('%d/%M/%Y %H:%M'))
 
