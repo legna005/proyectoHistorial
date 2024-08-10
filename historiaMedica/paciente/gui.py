@@ -4,7 +4,7 @@ from tkinter import *
 from tkinter import Button, ttk, scrolledtext,Toplevel,StringVar,LabelFrame
 from tkinter import messagebox
 from modelo.pacienteDao import Persona, guardarDatoPaciente, listarCondicion,listar,editarDatoPaciente,eliminarPaciente
-from modelo.HistoriaMedicaDao import historiaMedica,guardarHistoria,listarHistoria
+from modelo.HistoriaMedicaDao import historiaMedica,guardarHistoria,listarHistoria,eliminarHistorial
 import tkcalendar as tc
 from tkcalendar import *
 from tkcalendar import Calendar
@@ -389,7 +389,7 @@ class Frame(tk.Frame):
             self.btnEditarHistoria.config(width=20,font=('Arial',12,'bold'),fg='#DAD5D6',bg='#3A005D',cursor='hand2',activebackground='#B47CD6')
             self.btnEditarHistoria.grid(row=2,column=1,padx=10,pady=5)
 
-            self.btnEliminarHistoria=tk.Button(self.topHistoriaMedica, text='Eliminar Historia')
+            self.btnEliminarHistoria=tk.Button(self.topHistoriaMedica, text='Eliminar Historia',command=self.eliminarHistorialMedico)
             self.btnEliminarHistoria.config(width=20,font=('Arial',12,'bold'),fg='#DAD5D6',bg='#890011',cursor='hand2',activebackground='#DB939C')
             self.btnEliminarHistoria.grid(row=2,column=2,padx=10,pady=5)
 
@@ -526,6 +526,17 @@ class Frame(tk.Frame):
             mensaje='Error al agregar historia medica'
             messagebox.showerror(title,mensaje)
 
+    def eliminarHistorialMedico(self):
+        try:
+            self.idHistoriaMedica=self.tablaHistoria.item=(self.tablaHistoria.selection())['text']
+            eliminarHistorial(self.idHistoriaMedica)
+            self.idHistoriaMedica=None
+            self.topHistoriaMedica.destroy()
+        except:
+            title='Eliminar historia'
+            mensaje='Error al eliminar'
+            messagebox.showerror(title,mensaje)
+
     def calcularIMC(self):
       try:
         peso = float(self.svPesoHistorial.get())
@@ -533,7 +544,6 @@ class Frame(tk.Frame):
         imc = peso / (altura ** 2)
         self.svImcHistorial.set(f"{imc:.2f}")
         
-        # Recomendaciones basadas en el IMC
         if imc < 18.5:
             messagebox.showinfo("Recomendación", "Peso bajo:  Sería bueno que comas un poco más, incluyendo alimentos nutritivos como frutas, nueces, y pan integral. Además, trata de hacer algo de ejercicio para ganar fuerza, como levantar pequeñas pesas o hacer ejercicios en casa.")
         elif 18.5 <= imc < 24.9:

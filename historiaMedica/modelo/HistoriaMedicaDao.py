@@ -33,6 +33,21 @@ def guardarHistoria(idPersona,fechaHistoria,temperaturaCorporal,pulso,frecuencia
         mensaje = 'Error al registrar historia'
         messagebox.showerror(title, mensaje)
 
+def eliminarHistorial(idHistoriaMedica):
+    conexion=ConexionDB()
+    sql=f'DELETE FROM historiaMedica WHERE idHistoriaMedica={idHistoriaMedica}'
+
+    try:
+        conexion.cursor.execute(sql)
+        conexion.cerrarConexion()
+        title='Eliminar Historial'
+        mensaje='Historia medica eliminada exitosamente'
+        messagebox.showinfo(title,mensaje)
+    except:
+        title='Eliminar Historial'
+        mensaje='Error al eliminar historia medica'
+        messagebox.showerror(title,mensaje)
+
 class historiaMedica:
     def _init_(self,idPersona,fechaHistoria,temperaturaCorporal,pulso,frecuenciaRespiratoria,presionArterial,peso,altura,imc):
         self.idHistoriaMedica=None
