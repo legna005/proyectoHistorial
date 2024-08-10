@@ -527,13 +527,24 @@ class Frame(tk.Frame):
             messagebox.showerror(title,mensaje)
 
     def calcularIMC(self):
-        try:
-            peso = float(self.svPesoHistorial.get())
-            altura = float(self.svAlturaHistorial.get())
-            imc = peso / (altura ** 2)
-            self.svImcHistorial.set(f"{imc:.2f}")
-        except ValueError:
-            messagebox.showerror("Error", "Por favor, ingrese valores numéricos válidos para el peso y la altura.")
+      try:
+        peso = float(self.svPesoHistorial.get())
+        altura = float(self.svAlturaHistorial.get())
+        imc = peso / (altura ** 2)
+        self.svImcHistorial.set(f"{imc:.2f}")
+        
+        # Recomendaciones basadas en el IMC
+        if imc < 18.5:
+            messagebox.showinfo("Recomendación", "Peso bajo:  Sería bueno que comas un poco más, incluyendo alimentos nutritivos como frutas, nueces, y pan integral. Además, trata de hacer algo de ejercicio para ganar fuerza, como levantar pequeñas pesas o hacer ejercicios en casa.")
+        elif 18.5 <= imc < 24.9:
+            messagebox.showinfo("Recomendación", "Peso normal: Estás en un buen camino! Sigue comiendo equilibrado, incluyendo frutas, verduras, proteínas, y carbohidratos. Mantente activo con ejercicios que disfrutes, como caminar, nadar, o montar en bici. Así mantendrás tu salud en buen estado.")
+        elif 25 <= imc < 29.9:
+            messagebox.showinfo("Recomendación", "Peso medio (sobrepeso):  Estás bien, pero hay un pequeño margen para mejorar. Intenta ajustar un poco tus porciones y elegir opciones más saludables cuando puedas. Un poco más de ejercicio te ayudará a sentirte aún mejor y mantenerte en forma.")
+        else:
+            messagebox.showinfo("Recomendación", "Peso alto (obesidad): Tu peso está un poco alto. Intenta comer de manera más equilibrada y agrega un poco más de actividad física a tu rutina diaria. Esto te ayudará a sentirte mejor y a mantener un peso más saludable.")
+        
+      except ValueError:
+        messagebox.showerror("Error", "Por favor, ingrese valores numéricos válidos para el peso y la altura.")
 
     
         
