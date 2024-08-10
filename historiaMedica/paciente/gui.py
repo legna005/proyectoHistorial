@@ -778,6 +778,9 @@ class Frame(tk.Frame):
             self.entryNombre.config(state='disabled')
             self.entryApePaterno.config(state='disabled')
             self.entryApeMaterno.config(state='disabled')
+            self.entryFecNacimiento.config(state='disabled')
+            self.entryEdad.config(state='disabled')
+            self.btnCalendario.config(state='disabled')
         except:
             title = 'Editar Paciente'
             mensaje = 'Error al editar paciente'
