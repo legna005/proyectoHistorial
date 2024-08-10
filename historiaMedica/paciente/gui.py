@@ -560,67 +560,85 @@ class Frame(tk.Frame):
             self.frameEditarHistoria.pack(fill="both",expand="yes",padx=20,pady=10)
 
             #label
-            self.lblTemperaturaCorporalEditar=tk.Label(self.frameEditarHistoria,text='Temperatura Corporal',width=30,font=('ARIAL',15,'bold'),bg='#CDD8FF')
-            self.lblTemperaturaCorporalEditar.grid(row=1,column=0,padx=5,pady=3)
+            self.lblSignosVitalesHistoriaEditar=tk.Label(self.frameEditarHistoria,text='Signos vitales:',width=20,font=('ARIAL',15,'bold'),bg='#8AF334')
+            self.lblSignosVitalesHistoriaEditar.grid(row=1,column=0,padx=5,pady=3)
+    
+            self.lblTemperaturaCorporalEditar=tk.Label(self.frameEditarHistoria,text='Temperatura Corporal',width=20,font=('ARIAL',15,'bold'),bg='#CDD8FF')
+            self.lblTemperaturaCorporalEditar.grid(row=2,column=0,padx=5,pady=3)
 
-            self.lblPulsoEditar=tk.Label(self.frameEditarHistoria,text='Pulso',width=30,font=('ARIAL',15,'bold'),bg='#CDD8FF')
-            self.lblPulsoEditar.grid(row=2,column=0,padx=5,pady=3)
+            self.lblPulsoEditar=tk.Label(self.frameEditarHistoria,text='Pulso',width=20,font=('ARIAL',15,'bold'),bg='#CDD8FF')
+            self.lblPulsoEditar.grid(row=3,column=0,padx=5,pady=3)
 
-            self.lblFrecuenciaRespiratoriaEditar=tk.Label(self.frameEditarHistoria,text='Frecuencia respiratoria',width=30,font=('ARIAL',15,'bold'),bg='#CDD8FF')
-            self.lblFrecuenciaRespiratoriaEditar.grid(row=3,column=0,padx=5,pady=3)
+            self.lblFrecuenciaRespiratoriaEditar=tk.Label(self.frameEditarHistoria,text='Frecuencia respiratoria',width=20,font=('ARIAL',15,'bold'),bg='#CDD8FF')
+            self.lblFrecuenciaRespiratoriaEditar.grid(row=4,column=0,padx=5,pady=3)
 
-            self.lblPresionArterialEditar=tk.Label(self.frameEditarHistoria,text='Presion arterial',width=30,font=('ARIAL',15,'bold'),bg='#CDD8FF')
-            self.lblPresionArterialEditar.grid(row=4,column=0,padx=5,pady=3)
+            self.lblPresionArterialEditar=tk.Label(self.frameEditarHistoria,text='Presion arterial',width=20,font=('ARIAL',15,'bold'),bg='#CDD8FF')
+            self.lblPresionArterialEditar.grid(row=5,column=0,padx=5,pady=3)
 
-            self.lblPesoEditar=tk.Label(self.frameEditarHistoria,text='Peso',width=30,font=('ARIAL',15,'bold'),bg='#CDD8FF')
-            self.lblPesoEditar.grid(row=5,column=0,padx=5,pady=3)
+            self.lblPesoEditar=tk.Label(self.frameEditarHistoria,text='Peso',width=20,font=('ARIAL',15,'bold'),bg='#CDD8FF')
+            self.lblPesoEditar.grid(row=6,column=0,padx=5,pady=3)
 
-            self.lblAlturaEditar=tk.Label(self.frameEditarHistoria,text='Altura',width=30,font=('ARIAL',15,'bold'),bg='#CDD8FF')
-            self.lblAlturaEditar.grid(row=6,column=0,padx=5,pady=3)
+            self.lblAlturaEditar=tk.Label(self.frameEditarHistoria,text='Altura',width=20,font=('ARIAL',15,'bold'),bg='#CDD8FF')
+            self.lblAlturaEditar.grid(row=7,column=0,padx=5,pady=3)
 
-            self.lblImcEditar=tk.Label(self.frameEditarHistoria,text='Imc',width=30,font=('ARIAL',15,'bold'),bg='#CDD8FF')
-            self.lblImcEditar.grid(row=7,column=0,padx=5,pady=3)
+            self.lblImcEditar=tk.Label(self.frameEditarHistoria,text='Imc',width=20,font=('ARIAL',15,'bold'),bg='#CDD8FF')
+            self.lblImcEditar.grid(row=8,column=0,padx=5,pady=3)
+
+            self.lblParametrosHistoria=tk.Label(self.frameEditarHistoria,text='Parámetros',width=21,font=('ARIAL',15,'bold'),bg='#8AF334')
+            self.lblParametrosHistoria.grid(row=1,column=3,padx=5,pady=3)
+
+            self.lblPTemperaturaHistoria=tk.Label(self.frameEditarHistoria,text='36.5°C - 37.3°C',width=21,font=('ARIAL',15,'bold'),bg='#8AF334')
+            self.lblPTemperaturaHistoria.grid(row=2,column=3,padx=5,pady=3)
+
+            self.lblPPulsoHistoria=tk.Label(self.frameEditarHistoria,text='60 - 100 latidos',width=21,font=('ARIAL',15,'bold'),bg='#8AF334')
+            self.lblPPulsoHistoria.grid(row=3,column=3,padx=5,pady=3)
+
+            self.lblPFrecuenciarespiratoriaHistoria=tk.Label(self.frameEditarHistoria,text='12 - 18 respiraciones x min.',width=21,font=('ARIAL',15,'bold'),bg='#8AF334')
+            self.lblPFrecuenciarespiratoriaHistoria.grid(row=4,column=3,padx=5,pady=3)
+
+            self.lblPPresionarterial=tk.Label(self.frameEditarHistoria,text='60 - 100 latidos x min.',width=21,font=('ARIAL',15,'bold'),bg='#8AF334')
+            self.lblPPresionarterial.grid(row=5,column=3,padx=5,pady=3)
 
             self.svTemperaturaCorporalEditar=tk.StringVar()
             self.entryTemperaturaCorporalEditar=tk.Entry(self.frameEditarHistoria,textvariable=self.svTemperaturaCorporalEditar)
-            self.entryTemperaturaCorporalEditar.config(width=65,font=('ARIAL',15))
-            self.entryTemperaturaCorporalEditar.grid(row=1,column=1,pady=3,padx=5,columnspan=2)
+            self.entryTemperaturaCorporalEditar.config(width=20,font=('ARIAL',15))
+            self.entryTemperaturaCorporalEditar.grid(row=2,column=1,pady=3,padx=5,columnspan=2)
 
             self.svPulsoEditar=tk.StringVar()
             self.entryPulsoEditar=tk.Entry(self.frameEditarHistoria,textvariable=self.svPulsoEditar)
-            self.entryPulsoEditar.config(width=65,font=('ARIAL',15))
-            self.entryPulsoEditar.grid(row=2,column=1,pady=3,padx=5,columnspan=2)
+            self.entryPulsoEditar.config(width=20,font=('ARIAL',15))
+            self.entryPulsoEditar.grid(row=3,column=1,pady=3,padx=5,columnspan=2)
 
             self.svFrecuenciaRespiratoriaEditar=tk.StringVar()
             self.entryFrecuenciaRespiratoriaEditar=tk.Entry(self.frameEditarHistoria,textvariable=self.svFrecuenciaRespiratoriaEditar)
-            self.entryFrecuenciaRespiratoriaEditar.config(width=65,font=('ARIAL',15))
-            self.entryFrecuenciaRespiratoriaEditar.grid(row=3,column=1,pady=3,padx=5,columnspan=2)
+            self.entryFrecuenciaRespiratoriaEditar.config(width=20,font=('ARIAL',15))
+            self.entryFrecuenciaRespiratoriaEditar.grid(row=4,column=1,pady=3,padx=5,columnspan=2)
 
             self.svPresionArterialEditar=tk.StringVar()
             self.entryPresionArterialEditar=tk.Entry(self.frameEditarHistoria,textvariable=self.svPresionArterialEditar)
-            self.entryPresionArterialEditar.config(width=65,font=('ARIAL',15))
-            self.entryPresionArterialEditar.grid(row=4,column=1,pady=3,padx=5,columnspan=2)
+            self.entryPresionArterialEditar.config(width=20,font=('ARIAL',15))
+            self.entryPresionArterialEditar.grid(row=5,column=1,pady=3,padx=5,columnspan=2)
 
             self.svPesoEditar=tk.StringVar()
             self.entryPesoEditar=tk.Entry(self.frameEditarHistoria,textvariable=self.svPesoEditar)
-            self.entryPesoEditar.config(width=65,font=('ARIAL',15))
-            self.entryPesoEditar.grid(row=5,column=1,pady=3,padx=5,columnspan=2)
+            self.entryPesoEditar.config(width=20,font=('ARIAL',15))
+            self.entryPesoEditar.grid(row=6,column=1,pady=3,padx=5,columnspan=2)
 
             self.svAlturaEditar=tk.StringVar()
             self.entryAlturaEditar=tk.Entry(self.frameEditarHistoria,textvariable=self.svAlturaEditar)
-            self.entryAlturaEditar.config(width=65,font=('ARIAL',15))
-            self.entryAlturaEditar.grid(row=6,column=1,pady=3,padx=5,columnspan=2)
+            self.entryAlturaEditar.config(width=20,font=('ARIAL',15))
+            self.entryAlturaEditar.grid(row=7,column=1,pady=3,padx=5,columnspan=2)
 
             self.svImcEditar=tk.StringVar()
             self.entryImcEditar=tk.Entry(self.frameEditarHistoria,textvariable=self.svImcEditar)
-            self.entryImcEditar.config(width=65,font=('ARIAL',15))
-            self.entryImcEditar.grid(row=7,column=1,pady=3,padx=5,columnspan=2)
+            self.entryImcEditar.config(width=20,font=('ARIAL',15))
+            self.entryImcEditar.grid(row=8,column=1,pady=3,padx=5,columnspan=2)
 
             self.framefechaEditar=tk.LabelFrame(self.topEditarHistoria)
             self.framefechaEditar.config(bg='#CDD8FF')
             self.framefechaEditar.pack(fill="both",expand="yes",padx=20,pady=10)
 
-            self.lblfechaHistoriaEditar=tk.Label(self.framefechaEditar,text='Fecha y hora',width=30,font=('ARIAL',15,'bold'),bg='#CDD8FF')
+            self.lblfechaHistoriaEditar=tk.Label(self.framefechaEditar,text='Fecha y hora',width=20,font=('ARIAL',15,'bold'),bg='#CDD8FF')
             self.lblfechaHistoriaEditar.grid(row=1,column=0,padx=3,pady=5)
 
 
@@ -644,11 +662,11 @@ class Frame(tk.Frame):
 
             self.btnSalirEditarHistoriaMedica=tk.Button(self.framefechaEditar,text='Salir',command=self.topEditarHistoria.destroy)
             self.btnSalirEditarHistoriaMedica.config(width=20,font=('ARIAL',12,'bold'),fg='#DAD5D6',bg='#000000',cursor='hand2',activebackground='#676767')
-            self.btnSalirEditarHistoriaMedica.grid(row=2,column=4,padx=10,pady=5)
+            self.btnSalirEditarHistoriaMedica.grid(row=2,column=3,padx=10,pady=5)
 
             self.btncalcularImcEditarHistoriaMedica=tk.Button(self.framefechaEditar,text='Calcular imc',command=self.calcularIMCEditar)
             self.btncalcularImcEditarHistoriaMedica.config(width=20,font=('ARIAL',12,'bold'),fg='#DAD5D6',bg='#000992',cursor='hand2',activebackground='#4E56C6')
-            self.btncalcularImcEditarHistoriaMedica.grid(row=2,column=3,padx=10,pady=5)
+            self.btncalcularImcEditarHistoriaMedica.grid(row=1,column=3,padx=10,pady=5)
 
             if self.idHistoriaMedicaEditar==None:
                 self.idHistoriaMedicaEditar=self.idHistoriaMedica
