@@ -222,6 +222,7 @@ class Frame(tk.Frame):
         
         self.deshabilitar()
         self.tablaPaciente()
+        self.calendario.destroy()
         
     def habilitar(self):
          
@@ -773,6 +774,10 @@ class Frame(tk.Frame):
             self.entryAntecedentes.insert(0,self.antecedentesPaciente)
             self.entryCorreo.insert(0,self.correoPaciente)
             self.entryTelefono.insert(0,self.telefonoPaciente)
+
+            self.entryNombre.config(state='disabled')
+            self.entryApePaterno.config(state='disabled')
+            self.entryApeMaterno.config(state='disabled')
         except:
             title = 'Editar Paciente'
             mensaje = 'Error al editar paciente'
