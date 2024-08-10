@@ -19,7 +19,7 @@ def listarHistoria(idPersona):
 
 def guardarHistoria(idPersona,fechaHistoria,temperaturaCorporal,pulso,frecuenciaRespiratoria,presionArterial,peso,altura,imc):
     conexion=ConexionDB()
-    sql = f"""INSERT INTO historiaMedica (idPersona,temperaturaCorporal , pulso,
+    sql = f"""INSERT INTO historiaMedica (idPersona,fechaHistoria,temperaturaCorporal , pulso,
           frecuenciaRespiratoria, presionArterial, peso, altura, imc ) VALUES
           ({idPersona},'{fechaHistoria}','{temperaturaCorporal}',{pulso},'{frecuenciaRespiratoria}',{presionArterial},'{peso}','{altura}','{imc}')"""
     try:

@@ -502,7 +502,7 @@ class Frame(tk.Frame):
 
         self.svFechaHistoria.set(datetime.today().strftime('%d/%m/%Y %H:%M'))
 
-        self.btnImcHistoria=tk.Button(self.frameFechaHistoria,text='Calcular Imc')
+        self.btnImcHistoria=tk.Button(self.frameFechaHistoria,text='Calcular Imc',command=self.calcularIMC)
         self.btnImcHistoria.config(width=20,font=('ARIAL',12,'bold'),fg='#DAD5D6',bg='#000992',cursor='hand2',activebackground='#4E56C6')
         self.btnImcHistoria.grid(row=2,column=1,padx=9,pady=5)
 
@@ -518,13 +518,22 @@ class Frame(tk.Frame):
     def guardarHistorialMedico(self):
         try:
             if self.idHistoriaMedica==None:
-                guardarHistoria(self.idPersonaHistoria,self.svFechaHistoria.get(),self.svTemperaturaCorporalHistoria.get(),self.svPulsoHistoria.get(),self.svFrecuenciaRespiratoriaHistoria.get(),self.svPresionArterialHistoria.get(),self.svPesoHistorial.get(),self.svAlturaHistorial.get(),self.svImcHistorial)
-                self.topAHistoria.destroy()
-                self.topHistoriaMedica.destroy()
+                guardarHistoria(self.idPersonaHistoria,self.svFechaHistoria.get(),self.svTemperaturaCorporalHistoria.get(),self.svPulsoHistoria.get(),self.svFrecuenciaRespiratoriaHistoria.get(),self.svPresionArterialHistoria.get(),self.svPesoHistorial.get(),self.svAlturaHistorial.get(),self.svImcHistorial.get())
+            self.topAHistoria.destroy()
+            self.topHistoriaMedica.destroy()
         except:
             title='Agregar Historia'
             mensaje='Error al agregar historia medica'
             messagebox.showerror(title,mensaje)
+
+    def calcularIMC(self):
+        try:
+            peso = float(self.svPesoHistorial.get())
+            altura = float(self.svAlturaHistorial.get())
+            imc = peso / (altura ** 2)
+            self.svImcHistorial.set(f"{imc:.2f}")
+        except ValueError:
+            messagebox.showerror("Error", "Por favor, ingrese valores numéricos válidos para el peso y la altura.")
 
     
         
@@ -586,3 +595,5 @@ class Frame(tk.Frame):
             title='Eliminar Paciente'
             mensaje='No se pudo eliminar el paciente'
             messagebox.showerror(title,mensaje)
+
+    
