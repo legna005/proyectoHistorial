@@ -55,7 +55,7 @@ def editarHistoria(fechaHistoria,temperaturaCorporal,pulso,frecuenciaRespiratori
         conexion.cursor.execute(sql)
         conexion.cerrarConexion()
         title='Editar historia'
-        mensaje='Historia medica eliminada exitosamente'
+        mensaje='Historia medica editada exitosamente'
         messagebox.showinfo(title,mensaje)
     except:
         title='Editar historia'
