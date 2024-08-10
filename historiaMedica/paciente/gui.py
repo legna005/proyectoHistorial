@@ -4,7 +4,7 @@ from tkinter import *
 from tkinter import Button, ttk, scrolledtext,Toplevel,StringVar,LabelFrame
 from tkinter import messagebox
 from modelo.pacienteDao import Persona, guardarDatoPaciente, listarCondicion,listar,editarDatoPaciente,eliminarPaciente
-from modelo.HistoriaMedicaDao import historiaMedica,guardarHistoria,listarHistoria,eliminarHistorial
+from modelo.HistoriaMedicaDao import historiaMedica,guardarHistoria,listarHistoria,eliminarHistorial,editarHistoria
 import tkcalendar as tc
 from tkcalendar import *
 from tkcalendar import Calendar
@@ -20,6 +20,7 @@ class Frame(tk.Frame):
         self.idPersonaHistoria=None
         self.idPersona=None
         self.idHistoriaMedica=None
+        self.idHistoriaMedicaEditar=None
         self.camposPaciente()
         self.deshabilitar()
         self.tablaPaciente()
@@ -385,7 +386,7 @@ class Frame(tk.Frame):
             self.btnGuardarHistoria.config(width=20,font=('Arial',12,'bold'),fg='#DAD5D6',bg='#002771',cursor='hand2',activebackground='#7198E0')
             self.btnGuardarHistoria.grid(row=2,column=0,padx=10,pady=5)
 
-            self.btnEditarHistoria=tk.Button(self.topHistoriaMedica, text='Editar Historia')
+            self.btnEditarHistoria=tk.Button(self.topHistoriaMedica, text='Editar Historia',command=self.topEditarHistorialMedico)
             self.btnEditarHistoria.config(width=20,font=('Arial',12,'bold'),fg='#DAD5D6',bg='#3A005D',cursor='hand2',activebackground='#B47CD6')
             self.btnEditarHistoria.grid(row=2,column=1,padx=10,pady=5)
 
@@ -495,10 +496,10 @@ class Frame(tk.Frame):
         self.svFechaHistoria=tk.StringVar()
         self.entryFechaHistoria=tk.Entry(self.frameFechaHistoria,textvariable=self.svFechaHistoria)
         self.entryFechaHistoria.config(width=15,font=('ARIAL',15))
-        self.entryFechaHistoria.grid(row=1,column=0,padx=5,pady=3)
+        self.entryFechaHistoria.grid(row=1,column=1,padx=5,pady=3)
 
-        self.lblfechaHistoria=tk.Label(self.frameDatosHistoria,text='fecha y hora',width=15,font=('ARIAL',15),bg='#CDD8FF')
-        self.lblfechaHistoria.grid(row=16,column=0,padx=3,pady=3)
+        self.lblfechaHistoria=tk.Label(self.frameFechaHistoria,text='fecha y hora',width=15,font=('ARIAL',15),bg='#CDD8FF')
+        self.lblfechaHistoria.grid(row=1,column=0,padx=3,pady=3)
 
         self.svFechaHistoria.set(datetime.today().strftime('%d/%m/%Y %H:%M'))
 
@@ -528,15 +529,157 @@ class Frame(tk.Frame):
 
     def eliminarHistorialMedico(self):
         try:
-            self.idHistoriaMedica=self.tablaHistoria.item=(self.tablaHistoria.selection())['text']
-            eliminarHistorial(self.idHistoriaMedica)
-            self.idHistoriaMedica=None
-            self.topHistoriaMedica.destroy()
+             self.idHistoriaMedica=self.tablaHistoria.item(self.tablaHistoria.selection())['text']
+             eliminarHistorial(self.idHistoriaMedica)
+             self.idHistoriaMedica=None
+             self.topHistoriaMedica.destroy()
         except:
-            title='Eliminar historia'
-            mensaje='Error al eliminar'
-            messagebox.showerror(title,mensaje)
+             title='Eliminar historia'
+             mensaje='Error al eliminar'
+             messagebox.showerror(title,mensaje)
 
+    def topEditarHistorialMedico(self):
+        try:
+            self.idHistoriaMedica=self.tablaHistoria.item(self.tablaHistoria.selection())['text']
+            self.fechaHistoriaEditar=self.tablaHistoria.item(self.tablaHistoria.selection())['values'][1]
+            self.TemperaturaCorporalEditar=self.tablaHistoria.item(self.tablaHistoria.selection())['values'][2]
+            self.PulsoEditar=self.tablaHistoria.item(self.tablaHistoria.selection())['values'][3]
+            self.FrecuenciaRespiratoriaEditar=self.tablaHistoria.item(self.tablaHistoria.selection())['values'][4]
+            self.PresionArterialEditar=self.tablaHistoria.item(self.tablaHistoria.selection())['values'][5]
+            self.PesoEditar=self.tablaHistoria.item(self.tablaHistoria.selection())['values'][6]
+            self.AlturaEditar=self.tablaHistoria.item(self.tablaHistoria.selection())['values'][7]
+            self.ImcEditar=self.tablaHistoria.item(self.tablaHistoria.selection())['values'][8]
+
+            self.topEditarHistoria=Toplevel()
+            self.topEditarHistoria.title('Editar historia medica')
+            self.topEditarHistoria.resizable(0,0)
+            self.topEditarHistoria.config(bg='#CDD8FF')
+
+            self.frameEditarHistoria=tk.Label(self.topEditarHistoria)
+            self.frameEditarHistoria.config(bg='#CDD8FF')
+            self.frameEditarHistoria.pack(fill="both",expand="yes",padx=20,pady=10)
+
+            #label
+            self.lblTemperaturaCorporalEditar=tk.Label(self.frameEditarHistoria,text='Temperatura Corporal',width=30,font=('ARIAL',15,'bold'),bg='#CDD8FF')
+            self.lblTemperaturaCorporalEditar.grid(row=1,column=0,padx=5,pady=3)
+
+            self.lblPulsoEditar=tk.Label(self.frameEditarHistoria,text='Pulso',width=30,font=('ARIAL',15,'bold'),bg='#CDD8FF')
+            self.lblPulsoEditar.grid(row=2,column=0,padx=5,pady=3)
+
+            self.lblFrecuenciaRespiratoriaEditar=tk.Label(self.frameEditarHistoria,text='Frecuencia respiratoria',width=30,font=('ARIAL',15,'bold'),bg='#CDD8FF')
+            self.lblFrecuenciaRespiratoriaEditar.grid(row=3,column=0,padx=5,pady=3)
+
+            self.lblPresionArterialEditar=tk.Label(self.frameEditarHistoria,text='Presion arterial',width=30,font=('ARIAL',15,'bold'),bg='#CDD8FF')
+            self.lblPresionArterialEditar.grid(row=4,column=0,padx=5,pady=3)
+
+            self.lblPesoEditar=tk.Label(self.frameEditarHistoria,text='Peso',width=30,font=('ARIAL',15,'bold'),bg='#CDD8FF')
+            self.lblPesoEditar.grid(row=5,column=0,padx=5,pady=3)
+
+            self.lblAlturaEditar=tk.Label(self.frameEditarHistoria,text='Altura',width=30,font=('ARIAL',15,'bold'),bg='#CDD8FF')
+            self.lblAlturaEditar.grid(row=6,column=0,padx=5,pady=3)
+
+            self.lblImcEditar=tk.Label(self.frameEditarHistoria,text='Imc',width=30,font=('ARIAL',15,'bold'),bg='#CDD8FF')
+            self.lblImcEditar.grid(row=7,column=0,padx=5,pady=3)
+
+            self.svTemperaturaCorporalEditar=tk.StringVar()
+            self.entryTemperaturaCorporalEditar=tk.Entry(self.frameEditarHistoria,textvariable=self.svTemperaturaCorporalEditar)
+            self.entryTemperaturaCorporalEditar.config(width=65,font=('ARIAL',15))
+            self.entryTemperaturaCorporalEditar.grid(row=1,column=1,pady=3,padx=5,columnspan=2)
+
+            self.svPulsoEditar=tk.StringVar()
+            self.entryPulsoEditar=tk.Entry(self.frameEditarHistoria,textvariable=self.svPulsoEditar)
+            self.entryPulsoEditar.config(width=65,font=('ARIAL',15))
+            self.entryPulsoEditar.grid(row=2,column=1,pady=3,padx=5,columnspan=2)
+
+            self.svFrecuenciaRespiratoriaEditar=tk.StringVar()
+            self.entryFrecuenciaRespiratoriaEditar=tk.Entry(self.frameEditarHistoria,textvariable=self.svFrecuenciaRespiratoriaEditar)
+            self.entryFrecuenciaRespiratoriaEditar.config(width=65,font=('ARIAL',15))
+            self.entryFrecuenciaRespiratoriaEditar.grid(row=3,column=1,pady=3,padx=5,columnspan=2)
+
+            self.svPresionArterialEditar=tk.StringVar()
+            self.entryPresionArterialEditar=tk.Entry(self.frameEditarHistoria,textvariable=self.svPresionArterialEditar)
+            self.entryPresionArterialEditar.config(width=65,font=('ARIAL',15))
+            self.entryPresionArterialEditar.grid(row=4,column=1,pady=3,padx=5,columnspan=2)
+
+            self.svPesoEditar=tk.StringVar()
+            self.entryPesoEditar=tk.Entry(self.frameEditarHistoria,textvariable=self.svPesoEditar)
+            self.entryPesoEditar.config(width=65,font=('ARIAL',15))
+            self.entryPesoEditar.grid(row=5,column=1,pady=3,padx=5,columnspan=2)
+
+            self.svAlturaEditar=tk.StringVar()
+            self.entryAlturaEditar=tk.Entry(self.frameEditarHistoria,textvariable=self.svAlturaEditar)
+            self.entryAlturaEditar.config(width=65,font=('ARIAL',15))
+            self.entryAlturaEditar.grid(row=6,column=1,pady=3,padx=5,columnspan=2)
+
+            self.svImcEditar=tk.StringVar()
+            self.entryImcEditar=tk.Entry(self.frameEditarHistoria,textvariable=self.svImcEditar)
+            self.entryImcEditar.config(width=65,font=('ARIAL',15))
+            self.entryImcEditar.grid(row=7,column=1,pady=3,padx=5,columnspan=2)
+
+            self.framefechaEditar=tk.LabelFrame(self.topEditarHistoria)
+            self.framefechaEditar.config(bg='#CDD8FF')
+            self.framefechaEditar.pack(fill="both",expand="yes",padx=20,pady=10)
+
+            self.lblfechaHistoriaEditar=tk.Label(self.framefechaEditar,text='Fecha y hora',width=30,font=('ARIAL',15,'bold'),bg='#CDD8FF')
+            self.lblfechaHistoriaEditar.grid(row=1,column=0,padx=3,pady=5)
+
+
+            self.svFechaHistoriaEditar = tk.StringVar()
+            self.entryFechaHistoriaEditar = tk.Entry(self.framefechaEditar, textvariable=self.svFechaHistoriaEditar)
+            self.entryFechaHistoriaEditar.config(width=20, font=('ARIAL', 15))
+            self.entryFechaHistoriaEditar.grid(row = 1, column=1, pady=3, padx=5)
+
+            self.entryFechaHistoriaEditar.insert(0, self.fechaHistoriaEditar)
+            self.entryTemperaturaCorporalEditar.insert(0,self.TemperaturaCorporalEditar)
+            self.entryPulsoEditar.insert(0,self.PulsoEditar)
+            self.entryFrecuenciaRespiratoriaEditar.insert(0,self.FrecuenciaRespiratoriaEditar)
+            self.entryPresionArterialEditar.insert(0,self.PresionArterialEditar)
+            self.entryPesoEditar.insert(0,self.PesoEditar)
+            self.entryAlturaEditar.insert(0,self.AlturaEditar)
+            self.entryImcEditar.insert(0,self.ImcEditar)
+            
+            self.btnEditarHistoriaMedica=tk.Button(self.framefechaEditar,text='Editar historia',command=self.historiaMedicaEditar)
+            self.btnEditarHistoriaMedica.config(width=20,font=('ARIAL',12,'bold'),fg='#DAD5D6',bg='#030058',cursor='hand2',activebackground='#8986DA')
+            self.btnEditarHistoriaMedica.grid(row=2,column=0,padx=10,pady=5)
+
+            self.btnSalirEditarHistoriaMedica=tk.Button(self.framefechaEditar,text='Salir',command=self.topEditarHistoria.destroy)
+            self.btnSalirEditarHistoriaMedica.config(width=20,font=('ARIAL',12,'bold'),fg='#DAD5D6',bg='#000000',cursor='hand2',activebackground='#676767')
+            self.btnSalirEditarHistoriaMedica.grid(row=2,column=4,padx=10,pady=5)
+
+            self.btncalcularImcEditarHistoriaMedica=tk.Button(self.framefechaEditar,text='Calcular imc',command=self.calcularIMCEditar)
+            self.btncalcularImcEditarHistoriaMedica.config(width=20,font=('ARIAL',12,'bold'),fg='#DAD5D6',bg='#000992',cursor='hand2',activebackground='#4E56C6')
+            self.btncalcularImcEditarHistoriaMedica.grid(row=2,column=3,padx=10,pady=5)
+
+            if self.idHistoriaMedicaEditar==None:
+                self.idHistoriaMedicaEditar=self.idHistoriaMedica
+            self.idHistoriaMedica=None
+
+        except:
+            title='Editar historia'
+            mensaje='Error al editar historia'
+            messagebox.showerror(title,mensaje)
+            
+
+    def calcularIMCEditar(self):
+      try:
+        peso = float(self.svPesoEditar.get())
+        altura = float(self.svAlturaEditar.get())
+        imc = peso / (altura ** 2)
+        self.svImcEditar.set(f"{imc:.2f}")
+        
+        if imc < 18.5:
+            messagebox.showinfo("Recomendación", "Peso bajo:  Sería bueno que comas un poco más, incluyendo alimentos nutritivos como frutas, nueces, y pan integral. Además, trata de hacer algo de ejercicio para ganar fuerza, como levantar pequeñas pesas o hacer ejercicios en casa.")
+        elif 18.5 <= imc < 24.9:
+            messagebox.showinfo("Recomendación", "Peso normal: Estás en un buen camino! Sigue comiendo equilibrado, incluyendo frutas, verduras, proteínas, y carbohidratos. Mantente activo con ejercicios que disfrutes, como caminar, nadar, o montar en bici. Así mantendrás tu salud en buen estado.")
+        elif 25 <= imc < 29.9:
+            messagebox.showinfo("Recomendación", "Peso medio (sobrepeso):  Estás bien, pero hay un pequeño margen para mejorar. Intenta ajustar un poco tus porciones y elegir opciones más saludables cuando puedas. Un poco más de ejercicio te ayudará a sentirte aún mejor y mantenerte en forma.")
+        else:
+            messagebox.showinfo("Recomendación", "Peso alto (obesidad): Tu peso está un poco alto. Intenta comer de manera más equilibrada y agrega un poco más de actividad física a tu rutina diaria. Esto te ayudará a sentirte mejor y a mantener un peso más saludable.")
+        
+      except ValueError:
+        messagebox.showerror("Error", "Por favor, ingrese valores numéricos válidos para el peso y la altura.")     
+
+        
     def calcularIMC(self):
       try:
         peso = float(self.svPesoHistorial.get())
@@ -560,6 +703,18 @@ class Frame(tk.Frame):
         
 
 
+    def historiaMedicaEditar(self):
+        try:
+            editarHistoria(self.svFechaHistoriaEditar.get(),self.svTemperaturaCorporalEditar.get(),self.svPulsoEditar.get(),self.svFrecuenciaRespiratoriaEditar.get(),self.svPresionArterialEditar.get(),self.svPesoEditar.get(),self.svAlturaEditar.get(),self.svImcEditar.get(),self.idHistoriaMedicaEditar)
+            self.idHistoriaMedicaEditar=None
+            self.idHistoriaMedica=None
+            self.topEditarHistoria.destroy()
+            self.topHistoriaMedica.destroy()
+        except:
+            title='Editar historia'
+            mensaje='Error al editar historia'
+            messagebox.showinfo(title,mensaje)
+            self.topEditarHistoria.destroy()
 
         
 

@@ -48,6 +48,21 @@ def eliminarHistorial(idHistoriaMedica):
         mensaje='Error al eliminar historia medica'
         messagebox.showerror(title,mensaje)
 
+def editarHistoria(fechaHistoria,temperaturaCorporal,pulso,frecuenciaRespiratoria,presionArterial,peso,altura,imc,idHistoriaMedica):
+    conexion=ConexionDB()
+    sql=f"""UPDATE historiaMedica SET fechaHistoria='{fechaHistoria}',temperaturaCorporal='{temperaturaCorporal}',pulso='{pulso}',frecuenciaRespiratoria='{frecuenciaRespiratoria}',presionArterial='{presionArterial}',peso='{peso}',altura='{altura}',imc='{imc}'WHERE idHistoriaMedica={idHistoriaMedica}"""
+    try:
+        conexion.cursor.execute(sql)
+        conexion.cerrarConexion()
+        title='Editar historia'
+        mensaje='Historia medica eliminada exitosamente'
+        messagebox.showinfo(title,mensaje)
+    except:
+        title='Editar historia'
+        mensaje='Error al editar hitoria medica'
+        messagebox.showinfo(title,mensaje)
+
+
 class historiaMedica:
     def _init_(self,idPersona,fechaHistoria,temperaturaCorporal,pulso,frecuenciaRespiratoria,presionArterial,peso,altura,imc):
         self.idHistoriaMedica=None
