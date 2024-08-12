@@ -27,7 +27,7 @@ class Frame(tk.Frame):
         
 #estos son las letras que aparecen a lado de las casillas de texto
     def camposPaciente(self):
-        self.lblNombre=tk.Label(self,text="Nombre: ")
+        self.lblNombre=tk.Label(self,text="Nombre(s): ")
         self.lblNombre.config(font=("ARIAL",15,"bold"),bg="#CDD8FF")
         self.lblNombre.grid(column=0, row=0, padx=10, pady=5)
         
@@ -39,7 +39,7 @@ class Frame(tk.Frame):
         self.lblApeMaterno.config(font=("ARIAL",15,"bold"),bg="#CDD8FF")
         self.lblApeMaterno.grid(column=0, row=2, padx=10, pady=5)
 
-        self.lblDni=tk.Label(self,text="DNI: ")
+        self.lblDni=tk.Label(self,text="Identificación Única: ")
         self.lblDni.config(font=("ARIAL",15,"bold"),bg="#CDD8FF")
         self.lblDni.grid(column=0, row=3, padx=10, pady=5)
 
@@ -125,11 +125,11 @@ class Frame(tk.Frame):
         self.btnCancelar.grid(column=2,row=9,padx=10,pady=5)
 
         #BUSCADOR LABEL BUSCADOR
-        self.lblbuscarDni=tk.Label(self, text='Buscar Dni')
+        self.lblbuscarDni=tk.Label(self, text='Buscar IU:')
         self.lblbuscarDni.config(font=("ARIAL",15,"bold"),bg="#CDD8FF")
         self.lblbuscarDni.grid(column=3,row=0,padx=10,pady=5)
 
-        self.lblbuscarApellido=tk.Label(self, text='Buscar Apellido')
+        self.lblbuscarApellido=tk.Label(self, text='Buscar Apellido(Paterno)')
         self.lblbuscarApellido.config(font=("ARIAL",15,"bold"),bg="#CDD8FF")
         self.lblbuscarApellido.grid(column=3,row=1,padx=10,pady=5)
 
@@ -280,7 +280,7 @@ class Frame(tk.Frame):
             self.listaPersona = listar()
             #self.listaPersona.reverse()
 
-        self.tabla = ttk.Treeview(self, column=('Nombre', 'APaterno', 'AMaterno','Dni','FNacimiento','Edad','Antecedentes','Correo','Telefono'))
+        self.tabla = ttk.Treeview(self, column=('Nombre(s)', 'APaterno', 'AMaterno','IU','FNacimiento','Edad','Antecedentes','Correo','Teléfono'))
         self.tabla.grid(column=0, row=10, columnspan=10, sticky='nse')
         
         self.scroll = ttk.Scrollbar(self, orient='vertical', command=self.tabla.yview)
@@ -291,15 +291,15 @@ class Frame(tk.Frame):
         self.tabla.tag_configure('evenrow', background='#C5EAFE')
 
         self.tabla.heading('#0',text='ID')
-        self.tabla.heading('#1',text='Nombre')
+        self.tabla.heading('#1',text='Nombre(s)')
         self.tabla.heading('#2',text='Ap. Paterno')
         self.tabla.heading('#3',text='Ap. Materno')
-        self.tabla.heading('#4',text='Dni')
+        self.tabla.heading('#4',text='IU')
         self.tabla.heading('#5',text='F. Nacimiento')
         self.tabla.heading('#6',text='Edad')
         self.tabla.heading('#7',text='Antecedentes')
         self.tabla.heading('#8',text='Correo')
-        self.tabla.heading('#9',text='Telefono')
+        self.tabla.heading('#9',text='Teléfono')
 
         self.tabla.column("#0", anchor=W, width=50)
         self.tabla.column("#1", anchor=W, width=150)
@@ -345,7 +345,7 @@ class Frame(tk.Frame):
             self.topHistoriaMedica.config(bg='#CDD8FF')
 
             self.listaHistoria=listarHistoria(idPersona)
-            self.tablaHistoria = ttk.Treeview(self.topHistoriaMedica, columns=('Apellidos', 'fechaHistoria', 'temperaturaCorporal', 'pulso', 'frecuenciaRespiratoria', 'presionArterial', 'peso', 'altura', 'imc'))
+            self.tablaHistoria = ttk.Treeview(self.topHistoriaMedica, columns=('Apellidos', 'FechaHistoria', 'TemperaturaCorporal', 'Pulso', 'FrecuenciaRespiratoria', 'PresiónArterial', 'Peso', 'Altura', 'IMC'))
             self.tablaHistoria.grid(row=0, column=0, columnspan=10,sticky='nse')
 
             self.scrollHistoria=ttk.Scrollbar(self.topHistoriaMedica,orient='vertical',command=self.tablaHistoria.yview)
@@ -354,26 +354,26 @@ class Frame(tk.Frame):
             self.tablaHistoria.configure(yscrollcommand=self.scrollHistoria.set)
 
             self.tablaHistoria.heading('#0',text='ID')
-            self.tablaHistoria.heading('#1',text='Apellidos')
+            self.tablaHistoria.heading('#1',text='Nombre(s) y Apellidos')
             self.tablaHistoria.heading('#2',text='Fecha y Hora')
             self.tablaHistoria.heading('#3',text='temperatura corporal')
             self.tablaHistoria.heading('#4',text='Pulso')
-            self.tablaHistoria.heading('#5',text='frecuencia respiratoria')
-            self.tablaHistoria.heading('#6',text='presion arterial')
-            self.tablaHistoria.heading('#7',text='peso')
-            self.tablaHistoria.heading('#8',text='altura')
-            self.tablaHistoria.heading('#9',text='imc')
+            self.tablaHistoria.heading('#5',text='Frecuencia respiratoria')
+            self.tablaHistoria.heading('#6',text='Presión arterial')
+            self.tablaHistoria.heading('#7',text='Peso')
+            self.tablaHistoria.heading('#8',text='Altura')
+            self.tablaHistoria.heading('#9',text='IMC')
 
             self.tablaHistoria.column('#0',anchor=W,width=50)
-            self.tablaHistoria.column('#1',anchor=W,width=100)
-            self.tablaHistoria.column('#2',anchor=W,width=100)
-            self.tablaHistoria.column('#3',anchor=W,width=120)
-            self.tablaHistoria.column('#4',anchor=W,width=250)
+            self.tablaHistoria.column('#1',anchor=W,width=250)
+            self.tablaHistoria.column('#2',anchor=W,width=150)
+            self.tablaHistoria.column('#3',anchor=W,width=150)
+            self.tablaHistoria.column('#4',anchor=W,width=50)
             self.tablaHistoria.column('#5',anchor=W,width=150)
-            self.tablaHistoria.column('#6',anchor=W,width=50)
+            self.tablaHistoria.column('#6',anchor=W,width=150)
             self.tablaHistoria.column('#7',anchor=W,width=50)
-            self.tablaHistoria.column('#8',anchor=W,width=150)
-            self.tablaHistoria.column('#9',anchor=W,width=150)
+            self.tablaHistoria.column('#8',anchor=W,width=50)
+            self.tablaHistoria.column('#9',anchor=W,width=50)
 
             for p in self.listaHistoria:
                 self.tablaHistoria.insert('',0,text=p[0],values=(p[1],p[2],p[3],p[4],p[5],p[6],p[7],p[8],p[9]))
@@ -422,7 +422,7 @@ class Frame(tk.Frame):
         self.lblfrecuenciaRespiratoriaHistoria=tk.Label(self.frameDatosHistoria,text='Frecuencia respiratoria',width=20,font=('ARIAL',15,'bold'),bg='#CDD8FF')
         self.lblfrecuenciaRespiratoriaHistoria.grid(row=4,column=0,padx=5,pady=3)
 
-        self.lblpresionArterialHistoria=tk.Label(self.frameDatosHistoria,text='Presion arterial',width=20,font=('ARIAL',15,'bold'),bg='#CDD8FF')
+        self.lblpresionArterialHistoria=tk.Label(self.frameDatosHistoria,text='Presión arterial',width=20,font=('ARIAL',15,'bold'),bg='#CDD8FF')
         self.lblpresionArterialHistoria.grid(row=5,column=0,padx=5,pady=3)
 
         self.lblpesoHistoria=tk.Label(self.frameDatosHistoria,text='Peso (Kg)',width=20,font=('ARIAL',15,'bold'),bg='#CDD8FF')
@@ -546,7 +546,7 @@ class Frame(tk.Frame):
             self.ImcEditar=self.tablaHistoria.item(self.tablaHistoria.selection())['values'][8]
 
             self.topEditarHistoria=Toplevel()
-            self.topEditarHistoria.title('Editar historia medica')
+            self.topEditarHistoria.title('Editar historia médica')
             self.topEditarHistoria.resizable(0,0)
             self.topEditarHistoria.config(bg='#CDD8FF')
 
@@ -567,7 +567,7 @@ class Frame(tk.Frame):
             self.lblFrecuenciaRespiratoriaEditar=tk.Label(self.frameEditarHistoria,text='Frecuencia respiratoria',width=20,font=('ARIAL',15,'bold'),bg='#CDD8FF')
             self.lblFrecuenciaRespiratoriaEditar.grid(row=4,column=0,padx=5,pady=3)
 
-            self.lblPresionArterialEditar=tk.Label(self.frameEditarHistoria,text='Presion arterial',width=20,font=('ARIAL',15,'bold'),bg='#CDD8FF')
+            self.lblPresionArterialEditar=tk.Label(self.frameEditarHistoria,text='Presión arterial',width=20,font=('ARIAL',15,'bold'),bg='#CDD8FF')
             self.lblPresionArterialEditar.grid(row=5,column=0,padx=5,pady=3)
 
             self.lblPesoEditar=tk.Label(self.frameEditarHistoria,text='Peso (Kg)',width=20,font=('ARIAL',15,'bold'),bg='#CDD8FF')
