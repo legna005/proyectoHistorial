@@ -246,6 +246,7 @@ class Frame(tk.Frame):
          self.entryCorreo.config(state='normal')
          self.entryTelefono.config(state='normal')
 
+        
          self.btnGuardar.config(state='normal')
          self.btnCancelar.config(state='normal')
          self.btnCalendario.config(state='normal')
@@ -430,13 +431,13 @@ class Frame(tk.Frame):
         self.lblpresionArterialHistoria=tk.Label(self.frameDatosHistoria,text='Presion arterial',width=20,font=('ARIAL',15,'bold'),bg='#CDD8FF')
         self.lblpresionArterialHistoria.grid(row=5,column=0,padx=5,pady=3)
 
-        self.lblpesoHistoria=tk.Label(self.frameDatosHistoria,text='Peso',width=20,font=('ARIAL',15,'bold'),bg='#CDD8FF')
+        self.lblpesoHistoria=tk.Label(self.frameDatosHistoria,text='Peso (Kg)',width=20,font=('ARIAL',15,'bold'),bg='#CDD8FF')
         self.lblpesoHistoria.grid(row=6,column=0,padx=5,pady=3)
 
-        self.lblalturaHistoria=tk.Label(self.frameDatosHistoria,text='Altura',width=20,font=('ARIAL',15,'bold'),bg='#CDD8FF')
+        self.lblalturaHistoria=tk.Label(self.frameDatosHistoria,text='Altura (M)',width=20,font=('ARIAL',15,'bold'),bg='#CDD8FF')
         self.lblalturaHistoria.grid(row=7,column=0,padx=5,pady=3)
 
-        self.lblimcHistoria=tk.Label(self.frameDatosHistoria,text='Imc',width=20,font=('ARIAL',15,'bold'),bg='#CDD8FF')
+        self.lblimcHistoria=tk.Label(self.frameDatosHistoria,text='IMC',width=20,font=('ARIAL',15,'bold'),bg='#CDD8FF')
         self.lblimcHistoria.grid(row=8,column=0,padx=5,pady=3)
 
         self.lblParametrosHistoria=tk.Label(self.frameDatosHistoria,text='Parámetros',width=21,font=('ARIAL',15,'bold'),bg='#8AF334')
@@ -504,9 +505,9 @@ class Frame(tk.Frame):
 
         self.svFechaHistoria.set(datetime.today().strftime('%d/%m/%Y %H:%M'))
 
-        self.btnImcHistoria=tk.Button(self.frameFechaHistoria,text='Calcular Imc',command=self.calcularIMC)
+        self.btnImcHistoria=tk.Button(self.frameDatosHistoria,text='Calcular IMC',command=self.calcularIMC)
         self.btnImcHistoria.config(width=20,font=('ARIAL',12,'bold'),fg='#DAD5D6',bg='#000992',cursor='hand2',activebackground='#4E56C6')
-        self.btnImcHistoria.grid(row=2,column=1,padx=9,pady=5)
+        self.btnImcHistoria.grid(row=8,column=3,padx=9,pady=5)
 
         self.btnGuardarHistoria=tk.Button(self.frameFechaHistoria,text='Guardar Historia',command=self.guardarHistorialMedico)
         self.btnGuardarHistoria.config(width=20,font=('ARIAL',12,'bold'),fg='#DAD5D6',bg='#000992',cursor='hand2',activebackground='#4E56C6')
@@ -576,13 +577,13 @@ class Frame(tk.Frame):
             self.lblPresionArterialEditar=tk.Label(self.frameEditarHistoria,text='Presion arterial',width=20,font=('ARIAL',15,'bold'),bg='#CDD8FF')
             self.lblPresionArterialEditar.grid(row=5,column=0,padx=5,pady=3)
 
-            self.lblPesoEditar=tk.Label(self.frameEditarHistoria,text='Peso',width=20,font=('ARIAL',15,'bold'),bg='#CDD8FF')
+            self.lblPesoEditar=tk.Label(self.frameEditarHistoria,text='Peso (Kg)',width=20,font=('ARIAL',15,'bold'),bg='#CDD8FF')
             self.lblPesoEditar.grid(row=6,column=0,padx=5,pady=3)
 
-            self.lblAlturaEditar=tk.Label(self.frameEditarHistoria,text='Altura',width=20,font=('ARIAL',15,'bold'),bg='#CDD8FF')
+            self.lblAlturaEditar=tk.Label(self.frameEditarHistoria,text='Altura (M)',width=20,font=('ARIAL',15,'bold'),bg='#CDD8FF')
             self.lblAlturaEditar.grid(row=7,column=0,padx=5,pady=3)
 
-            self.lblImcEditar=tk.Label(self.frameEditarHistoria,text='Imc',width=20,font=('ARIAL',15,'bold'),bg='#CDD8FF')
+            self.lblImcEditar=tk.Label(self.frameEditarHistoria,text='IMC',width=20,font=('ARIAL',15,'bold'),bg='#CDD8FF')
             self.lblImcEditar.grid(row=8,column=0,padx=5,pady=3)
 
             self.lblParametrosHistoria=tk.Label(self.frameEditarHistoria,text='Parámetros',width=21,font=('ARIAL',15,'bold'),bg='#8AF334')
@@ -665,9 +666,9 @@ class Frame(tk.Frame):
             self.btnSalirEditarHistoriaMedica.config(width=20,font=('ARIAL',12,'bold'),fg='#DAD5D6',bg='#000000',cursor='hand2',activebackground='#676767')
             self.btnSalirEditarHistoriaMedica.grid(row=2,column=3,padx=10,pady=5)
 
-            self.btncalcularImcEditarHistoriaMedica=tk.Button(self.framefechaEditar,text='Calcular imc',command=self.calcularIMCEditar)
+            self.btncalcularImcEditarHistoriaMedica=tk.Button(self.frameEditarHistoria,text='Calcular IMC',command=self.calcularIMCEditar)
             self.btncalcularImcEditarHistoriaMedica.config(width=20,font=('ARIAL',12,'bold'),fg='#DAD5D6',bg='#000992',cursor='hand2',activebackground='#4E56C6')
-            self.btncalcularImcEditarHistoriaMedica.grid(row=1,column=3,padx=10,pady=5)
+            self.btncalcularImcEditarHistoriaMedica.grid(row=8,column=3,padx=10,pady=5)
 
             if self.idHistoriaMedicaEditar==None:
                 self.idHistoriaMedicaEditar=self.idHistoriaMedica
