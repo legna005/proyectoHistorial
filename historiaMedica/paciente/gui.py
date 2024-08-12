@@ -25,7 +25,6 @@ class Frame(tk.Frame):
         self.deshabilitar()
         self.tablaPaciente()
         
-        
 #estos son las letras que aparecen a lado de las casillas de texto
     def camposPaciente(self):
         self.lblNombre=tk.Label(self,text="Nombre: ")
@@ -159,7 +158,6 @@ class Frame(tk.Frame):
         self.btnCalendario=tk.Button(self, text="Calendario",command=self.vistaCalendario)
         self.btnCalendario.config(width=12,font=('Arial',12,'bold'),fg='#DAD5D6',bg='#120061',activebackground='#7C6DC1',cursor='hand2')
         self.btnCalendario.grid(column=3,row=4,padx=10,pady=5,columnspan=1)
-
     
     def vistaCalendario(self):
         self.calendario=Toplevel()
@@ -180,7 +178,6 @@ class Frame(tk.Frame):
         if len(self.calendar.get_date())>1:
             self.svCalendario.trace('w',self.calcularEdad)
 
-
     def calcularEdad(self, *args):
         self.fechaActual = date.today()
         self.date1 = self.calendar.get_date()
@@ -189,7 +186,6 @@ class Frame(tk.Frame):
         self.resul = self.fechaActual.year - self.conver.year
         self.resul -= ((self.fechaActual.month, self.fechaActual.day) < (self.conver.month, self.conver.day))
         self.svEdad.set(self.resul)
-
 
     def limpiarBuscador(self):
         self.svBuscarApellido.set('')
@@ -246,11 +242,9 @@ class Frame(tk.Frame):
          self.entryCorreo.config(state='normal')
          self.entryTelefono.config(state='normal')
 
-        
          self.btnGuardar.config(state='normal')
          self.btnCancelar.config(state='normal')
          self.btnCalendario.config(state='normal')
-
 
     def deshabilitar(self):
         self.idPersona=None
@@ -516,7 +510,6 @@ class Frame(tk.Frame):
         self.btnSalirAgregarHistoria=tk.Button(self.frameFechaHistoria,text='Salir',command=self.topAHistoria.destroy)
         self.btnSalirAgregarHistoria.config(width=20,font=('ARIAL',12,'bold'),fg='#DAD5D6',bg='#000000',cursor='hand2',activebackground='#646464')
         self.btnSalirAgregarHistoria.grid(row=2,column=3,padx=10,pady=5)
-
         
     def guardarHistorialMedico(self):
         try:
@@ -643,7 +636,6 @@ class Frame(tk.Frame):
             self.lblfechaHistoriaEditar=tk.Label(self.framefechaEditar,text='Fecha y hora',width=20,font=('ARIAL',15,'bold'),bg='#CDD8FF')
             self.lblfechaHistoriaEditar.grid(row=1,column=0,padx=3,pady=5)
 
-
             self.svFechaHistoriaEditar = tk.StringVar()
             self.entryFechaHistoriaEditar = tk.Entry(self.framefechaEditar, textvariable=self.svFechaHistoriaEditar)
             self.entryFechaHistoriaEditar.config(width=20, font=('ARIAL', 15))
@@ -679,7 +671,6 @@ class Frame(tk.Frame):
             mensaje='Error al editar historia'
             messagebox.showerror(title,mensaje)
             
-
     def calcularIMCEditar(self):
       try:
         peso = float(self.svPesoEditar.get())
@@ -699,7 +690,6 @@ class Frame(tk.Frame):
       except ValueError:
         messagebox.showerror("Error", "Por favor, ingrese valores numéricos válidos para el peso y la altura.")     
 
-        
     def calcularIMC(self):
       try:
         peso = float(self.svPesoHistorial.get())
@@ -719,10 +709,6 @@ class Frame(tk.Frame):
       except ValueError:
         messagebox.showerror("Error", "Por favor, ingrese valores numéricos válidos para el peso y la altura.")
 
-    
-        
-
-
     def historiaMedicaEditar(self):
         try:
             editarHistoria(self.svFechaHistoriaEditar.get(),self.svTemperaturaCorporalEditar.get(),self.svPulsoEditar.get(),self.svFrecuenciaRespiratoriaEditar.get(),self.svPresionArterialEditar.get(),self.svPesoEditar.get(),self.svAlturaEditar.get(),self.svImcEditar.get(),self.idHistoriaMedicaEditar)
@@ -736,20 +722,8 @@ class Frame(tk.Frame):
             messagebox.showinfo(title,mensaje)
             self.topEditarHistoria.destroy()
 
-        
-
-
-
-
-
-        
-
-
     def salirTop(self):
         self.topHistoriaMedica.destroy()
-
-
-        
             
     def editarPaciente(self):
         try:
@@ -798,5 +772,3 @@ class Frame(tk.Frame):
             title='Eliminar Paciente'
             mensaje='No se pudo eliminar el paciente'
             messagebox.showerror(title,mensaje)
-
-    
