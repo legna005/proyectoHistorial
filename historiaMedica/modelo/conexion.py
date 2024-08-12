@@ -2,7 +2,7 @@ import sqlite3
 
 class ConexionDB:
     def __init__(self):
-        self.baseDatos='database/dbhistorial.db'
+        self.baseDatos='database/db.basededatosdefinitiva.db'
         self.conexion=sqlite3.connect(self.baseDatos)
         self.cursor=self.conexion.cursor()
 
